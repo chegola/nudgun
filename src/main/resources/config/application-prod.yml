@@ -27,9 +27,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/nudgun
-        username: nudgun
-        password:
+        url: postgres://ec2-54-247-82-210.eu-west-1.compute.amazonaws.com:5432/df9a4jmc4682co
+        username: kwpqjegxvjtbid
+        password: 7e28b784fc9b50f006df407f02d28d5a0fc8646f6099e010b2a37f7ec8f734e0
         hikari:
             auto-commit: false
     jpa:
