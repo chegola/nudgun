@@ -1,0 +1,33 @@
+{
+    "nudgunApp": {
+        "serviceProvider": {
+            "home": {
+                "title": "Service Providers",
+                "createLabel": "Create a new Service Provider",
+                "createOrEditLabel": "Create or edit a Service Provider"
+            },
+            "created": "A new Service Provider is created with identifier {{ param }}",
+            "updated": "A Service Provider is updated with identifier {{ param }}",
+            "deleted": "A Service Provider is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Service Provider {{ id }}?"
+            },
+            "detail": {
+                "title": "Service Provider"
+            },
+            "name": "Name",
+            "profile_pic": "Profile Pic",
+            "services": "Services",
+            "openHour": "Open Hour",
+            "address": "Address",
+            "phone": "Phone",
+            "email": "Email",
+            "facebook": "Facebook",
+            "instragram": "Instragram",
+            "acceptCreditCard": "Accept Credit Card",
+            "parkingAvailable": "Parking Available",
+            "description": "Description",
+            "priceRange": "Price Range"
+        }
+    }
+}

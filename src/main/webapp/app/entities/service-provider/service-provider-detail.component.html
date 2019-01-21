@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="serviceProvider">
+            <h2><span jhiTranslate="nudgunApp.serviceProvider.detail.title">Service Provider</span> {{serviceProvider.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.name">Name</span></dt>
+                <dd>
+                    <span>{{serviceProvider.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.profile_pic">Profile Pic</span></dt>
+                <dd>
+                    <span>{{serviceProvider.profile_pic}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.services">Services</span></dt>
+                <dd>
+                    <span>{{serviceProvider.services}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.openHour">Open Hour</span></dt>
+                <dd>
+                    <span>{{serviceProvider.openHour}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.address">Address</span></dt>
+                <dd>
+                    <span>{{serviceProvider.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.phone">Phone</span></dt>
+                <dd>
+                    <span>{{serviceProvider.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.email">Email</span></dt>
+                <dd>
+                    <span>{{serviceProvider.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.facebook">Facebook</span></dt>
+                <dd>
+                    <span>{{serviceProvider.facebook}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.instragram">Instragram</span></dt>
+                <dd>
+                    <span>{{serviceProvider.instragram}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard">Accept Credit Card</span></dt>
+                <dd>
+                    <span>{{serviceProvider.acceptCreditCard}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.parkingAvailable">Parking Available</span></dt>
+                <dd>
+                    <span>{{serviceProvider.parkingAvailable}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.description">Description</span></dt>
+                <dd>
+                    <span>{{serviceProvider.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="nudgunApp.serviceProvider.priceRange">Price Range</span></dt>
+                <dd>
+                    <span>{{serviceProvider.priceRange}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/service-provider', serviceProvider.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

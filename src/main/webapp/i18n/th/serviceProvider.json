@@ -1,0 +1,33 @@
+{
+    "nudgunApp": {
+        "serviceProvider": {
+            "home": {
+                "title": "Service Providers",
+                "createLabel": "สร้าง Service Provider",
+                "createOrEditLabel": "สร้างหรือแก้ไข Service Provider"
+            },
+            "created": "Service Provider ถูกสร้างด้วย {{ param }}",
+            "updated": "Service Provider ถูกแก้ไขด้วย {{ param }}",
+            "deleted": "Service Provider ถูกลบด้วย {{ param }}",
+            "delete": {
+                "question": "คุณต้องการที่จะลบ Service Provider {{ id }}?"
+            },
+            "detail": {
+                "title": "Service Provider"
+            },
+            "name": "Name",
+            "profile_pic": "Profile Pic",
+            "services": "Services",
+            "openHour": "Open Hour",
+            "address": "Address",
+            "phone": "Phone",
+            "email": "Email",
+            "facebook": "Facebook",
+            "instragram": "Instragram",
+            "acceptCreditCard": "Accept Credit Card",
+            "parkingAvailable": "Parking Available",
+            "description": "Description",
+            "priceRange": "Price Range"
+        }
+    }
+}

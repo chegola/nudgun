@@ -1,0 +1,86 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="nudgunApp.serviceProvider.home.title">Service Providers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-service-provider" [routerLink]="['/service-provider/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="nudgunApp.serviceProvider.home.createLabel">
+            Create new Service Provider
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="serviceProviders">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span jhiTranslate="nudgunApp.serviceProvider.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="profile_pic"><span jhiTranslate="nudgunApp.serviceProvider.profile_pic">Profile Pic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="services"><span jhiTranslate="nudgunApp.serviceProvider.services">Services</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="openHour"><span jhiTranslate="nudgunApp.serviceProvider.openHour">Open Hour</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="address"><span jhiTranslate="nudgunApp.serviceProvider.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone"><span jhiTranslate="nudgunApp.serviceProvider.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="email"><span jhiTranslate="nudgunApp.serviceProvider.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="facebook"><span jhiTranslate="nudgunApp.serviceProvider.facebook">Facebook</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="instragram"><span jhiTranslate="nudgunApp.serviceProvider.instragram">Instragram</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="acceptCreditCard"><span jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard">Accept Credit Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parkingAvailable"><span jhiTranslate="nudgunApp.serviceProvider.parkingAvailable">Parking Available</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span jhiTranslate="nudgunApp.serviceProvider.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="priceRange"><span jhiTranslate="nudgunApp.serviceProvider.priceRange">Price Range</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let serviceProvider of serviceProviders ;trackBy: trackId">
+                <td><a [routerLink]="['/service-provider', serviceProvider.id, 'view' ]">{{serviceProvider.id}}</a></td>
+                <td>{{serviceProvider.name}}</td>
+                <td>{{serviceProvider.profile_pic}}</td>
+                <td>{{serviceProvider.services}}</td>
+                <td>{{serviceProvider.openHour}}</td>
+                <td>{{serviceProvider.address}}</td>
+                <td>{{serviceProvider.phone}}</td>
+                <td>{{serviceProvider.email}}</td>
+                <td>{{serviceProvider.facebook}}</td>
+                <td>{{serviceProvider.instragram}}</td>
+                <td>{{serviceProvider.acceptCreditCard}}</td>
+                <td>{{serviceProvider.parkingAvailable}}</td>
+                <td>{{serviceProvider.description}}</td>
+                <td>{{serviceProvider.priceRange}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/service-provider', serviceProvider.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/service-provider', serviceProvider.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'service-provider/'+ serviceProvider.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="serviceProviders && serviceProviders.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
