@@ -1,0 +1,41 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.nudgun",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.7.2",
+        "applicationType": "monolith",
+        "baseName": "nudgun",
+        "packageName": "com.nudgun",
+        "packageFolder": "com/nudgun",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "postgresql",
+        "prodDatabaseType": "postgresql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "ZGQyYmI3ZmYyN2I1MThjNDkxOTBjYTYzZGRlYjI3YTJjYmQ5NDE4OGYzZTQwNzljMDM4YTY4OGU4ZWYwMDgzYjA3NDIzNjdkYzM3OTQ0YTA1YjQ3MGJiYjBjNjAxMzI0YjFhM2RhNDhhZjRjMDdhMDJiNmZlOWQ3M2I5NGVmY2I=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["gatling", "cucumber", "protractor"],
+        "jhiPrefix": "jhi",
+        "otherModules": [
+            {
+                "name": "generator-jhipster-social-login-api",
+                "version": "0.0.1"
+            }
+        ],
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": ["en", "th"]
+    }
+}
