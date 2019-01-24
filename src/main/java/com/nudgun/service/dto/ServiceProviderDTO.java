@@ -24,9 +24,6 @@ public class ServiceProviderDTO implements Serializable {
     private String services;
 
     @NotNull
-    private String openHour;
-
-    @NotNull
     private String address;
 
     @NotNull
@@ -45,8 +42,6 @@ public class ServiceProviderDTO implements Serializable {
     private Boolean parkingAvailable;
 
     private String description;
-
-    private String priceRange;
 
     public Long getId() {
         return id;
@@ -78,14 +73,6 @@ public class ServiceProviderDTO implements Serializable {
 
     public void setServices(String services) {
         this.services = services;
-    }
-
-    public String getOpenHour() {
-        return openHour;
-    }
-
-    public void setOpenHour(String openHour) {
-        this.openHour = openHour;
     }
 
     public String getAddress() {
@@ -152,14 +139,6 @@ public class ServiceProviderDTO implements Serializable {
         this.description = description;
     }
 
-    public String getPriceRange() {
-        return priceRange;
-    }
-
-    public void setPriceRange(String priceRange) {
-        this.priceRange = priceRange;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -188,7 +167,6 @@ public class ServiceProviderDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", profile_pic='" + getProfile_pic() + "'" +
             ", services='" + getServices() + "'" +
-            ", openHour='" + getOpenHour() + "'" +
             ", address='" + getAddress() + "'" +
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
@@ -197,7 +175,6 @@ public class ServiceProviderDTO implements Serializable {
             ", acceptCreditCard='" + isAcceptCreditCard() + "'" +
             ", parkingAvailable='" + isParkingAvailable() + "'" +
             ", description='" + getDescription() + "'" +
-            ", priceRange='" + getPriceRange() + "'" +
             "}";
     }
 }

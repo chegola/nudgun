@@ -31,13 +31,6 @@
             "fieldValidateRulesMaxlength": "100"
         },
         {
-            "fieldName": "openHour",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "address",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -81,17 +74,13 @@
             "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": []
-        },
-        {
-            "fieldName": "priceRange",
-            "fieldType": "String"
         }
     ],
     "changelogDate": "20190121162230",
     "dto": "mapstruct",
     "searchEngine": false,
     "service": "serviceImpl",
-    "entityTableName": "ng_service_provider",
+    "entityTableName": "nu_service_provider",
     "jpaMetamodelFiltering": true,
     "pagination": "pagination"
 }

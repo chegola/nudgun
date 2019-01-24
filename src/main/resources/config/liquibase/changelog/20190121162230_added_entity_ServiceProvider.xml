@@ -17,7 +17,7 @@
         Added the entity ServiceProvider.
     -->
     <changeSet id="20190121162230-1" author="jhipster">
-        <createTable tableName="ng_service_provider">
+        <createTable tableName="nu_service_provider">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -30,10 +30,6 @@
             </column>
 
             <column name="services" type="varchar(100)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="open_hour" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 

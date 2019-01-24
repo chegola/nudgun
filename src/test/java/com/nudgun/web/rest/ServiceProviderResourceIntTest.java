@@ -54,9 +54,6 @@ public class ServiceProviderResourceIntTest {
     private static final String DEFAULT_SERVICES = "AAAAAAAAAA";
     private static final String UPDATED_SERVICES = "BBBBBBBBBB";
 
-    private static final String DEFAULT_OPEN_HOUR = "AAAAAAAAAA";
-    private static final String UPDATED_OPEN_HOUR = "BBBBBBBBBB";
-
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
 
@@ -80,9 +77,6 @@ public class ServiceProviderResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PRICE_RANGE = "AAAAAAAAAA";
-    private static final String UPDATED_PRICE_RANGE = "BBBBBBBBBB";
 
     @Autowired
     private ServiceProviderRepository serviceProviderRepository;
@@ -138,7 +132,6 @@ public class ServiceProviderResourceIntTest {
             .name(DEFAULT_NAME)
             .profile_pic(DEFAULT_PROFILE_PIC)
             .services(DEFAULT_SERVICES)
-            .openHour(DEFAULT_OPEN_HOUR)
             .address(DEFAULT_ADDRESS)
             .phone(DEFAULT_PHONE)
             .email(DEFAULT_EMAIL)
@@ -146,8 +139,7 @@ public class ServiceProviderResourceIntTest {
             .instragram(DEFAULT_INSTRAGRAM)
             .acceptCreditCard(DEFAULT_ACCEPT_CREDIT_CARD)
             .parkingAvailable(DEFAULT_PARKING_AVAILABLE)
-            .description(DEFAULT_DESCRIPTION)
-            .priceRange(DEFAULT_PRICE_RANGE);
+            .description(DEFAULT_DESCRIPTION);
         return serviceProvider;
     }
 
@@ -175,7 +167,6 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testServiceProvider.getProfile_pic()).isEqualTo(DEFAULT_PROFILE_PIC);
         assertThat(testServiceProvider.getServices()).isEqualTo(DEFAULT_SERVICES);
-        assertThat(testServiceProvider.getOpenHour()).isEqualTo(DEFAULT_OPEN_HOUR);
         assertThat(testServiceProvider.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testServiceProvider.getPhone()).isEqualTo(DEFAULT_PHONE);
         assertThat(testServiceProvider.getEmail()).isEqualTo(DEFAULT_EMAIL);
@@ -184,7 +175,6 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(DEFAULT_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(DEFAULT_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testServiceProvider.getPriceRange()).isEqualTo(DEFAULT_PRICE_RANGE);
     }
 
     @Test
@@ -251,25 +241,6 @@ public class ServiceProviderResourceIntTest {
         int databaseSizeBeforeTest = serviceProviderRepository.findAll().size();
         // set the field null
         serviceProvider.setServices(null);
-
-        // Create the ServiceProvider, which fails.
-        ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(serviceProvider);
-
-        restServiceProviderMockMvc.perform(post("/api/service-providers")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(serviceProviderDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<ServiceProvider> serviceProviderList = serviceProviderRepository.findAll();
-        assertThat(serviceProviderList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkOpenHourIsRequired() throws Exception {
-        int databaseSizeBeforeTest = serviceProviderRepository.findAll().size();
-        // set the field null
-        serviceProvider.setOpenHour(null);
 
         // Create the ServiceProvider, which fails.
         ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(serviceProvider);
@@ -373,7 +344,6 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].profile_pic").value(hasItem(DEFAULT_PROFILE_PIC.toString())))
             .andExpect(jsonPath("$.[*].services").value(hasItem(DEFAULT_SERVICES.toString())))
-            .andExpect(jsonPath("$.[*].openHour").value(hasItem(DEFAULT_OPEN_HOUR.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
@@ -381,8 +351,7 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].priceRange").value(hasItem(DEFAULT_PRICE_RANGE.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
     
     @Test
@@ -399,7 +368,6 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.profile_pic").value(DEFAULT_PROFILE_PIC.toString()))
             .andExpect(jsonPath("$.services").value(DEFAULT_SERVICES.toString()))
-            .andExpect(jsonPath("$.openHour").value(DEFAULT_OPEN_HOUR.toString()))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS.toString()))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL.toString()))
@@ -407,8 +375,7 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.instragram").value(DEFAULT_INSTRAGRAM.toString()))
             .andExpect(jsonPath("$.acceptCreditCard").value(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue()))
             .andExpect(jsonPath("$.parkingAvailable").value(DEFAULT_PARKING_AVAILABLE.booleanValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.priceRange").value(DEFAULT_PRICE_RANGE.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
     @Test
@@ -526,45 +493,6 @@ public class ServiceProviderResourceIntTest {
 
         // Get all the serviceProviderList where services is null
         defaultServiceProviderShouldNotBeFound("services.specified=false");
-    }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByOpenHourIsEqualToSomething() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where openHour equals to DEFAULT_OPEN_HOUR
-        defaultServiceProviderShouldBeFound("openHour.equals=" + DEFAULT_OPEN_HOUR);
-
-        // Get all the serviceProviderList where openHour equals to UPDATED_OPEN_HOUR
-        defaultServiceProviderShouldNotBeFound("openHour.equals=" + UPDATED_OPEN_HOUR);
-    }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByOpenHourIsInShouldWork() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where openHour in DEFAULT_OPEN_HOUR or UPDATED_OPEN_HOUR
-        defaultServiceProviderShouldBeFound("openHour.in=" + DEFAULT_OPEN_HOUR + "," + UPDATED_OPEN_HOUR);
-
-        // Get all the serviceProviderList where openHour equals to UPDATED_OPEN_HOUR
-        defaultServiceProviderShouldNotBeFound("openHour.in=" + UPDATED_OPEN_HOUR);
-    }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByOpenHourIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where openHour is not null
-        defaultServiceProviderShouldBeFound("openHour.specified=true");
-
-        // Get all the serviceProviderList where openHour is null
-        defaultServiceProviderShouldNotBeFound("openHour.specified=false");
     }
 
     @Test
@@ -878,45 +806,6 @@ public class ServiceProviderResourceIntTest {
         // Get all the serviceProviderList where description is null
         defaultServiceProviderShouldNotBeFound("description.specified=false");
     }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByPriceRangeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where priceRange equals to DEFAULT_PRICE_RANGE
-        defaultServiceProviderShouldBeFound("priceRange.equals=" + DEFAULT_PRICE_RANGE);
-
-        // Get all the serviceProviderList where priceRange equals to UPDATED_PRICE_RANGE
-        defaultServiceProviderShouldNotBeFound("priceRange.equals=" + UPDATED_PRICE_RANGE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByPriceRangeIsInShouldWork() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where priceRange in DEFAULT_PRICE_RANGE or UPDATED_PRICE_RANGE
-        defaultServiceProviderShouldBeFound("priceRange.in=" + DEFAULT_PRICE_RANGE + "," + UPDATED_PRICE_RANGE);
-
-        // Get all the serviceProviderList where priceRange equals to UPDATED_PRICE_RANGE
-        defaultServiceProviderShouldNotBeFound("priceRange.in=" + UPDATED_PRICE_RANGE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllServiceProvidersByPriceRangeIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        serviceProviderRepository.saveAndFlush(serviceProvider);
-
-        // Get all the serviceProviderList where priceRange is not null
-        defaultServiceProviderShouldBeFound("priceRange.specified=true");
-
-        // Get all the serviceProviderList where priceRange is null
-        defaultServiceProviderShouldNotBeFound("priceRange.specified=false");
-    }
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -928,7 +817,6 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].profile_pic").value(hasItem(DEFAULT_PROFILE_PIC.toString())))
             .andExpect(jsonPath("$.[*].services").value(hasItem(DEFAULT_SERVICES.toString())))
-            .andExpect(jsonPath("$.[*].openHour").value(hasItem(DEFAULT_OPEN_HOUR.toString())))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS.toString())))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL.toString())))
@@ -936,8 +824,7 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].priceRange").value(hasItem(DEFAULT_PRICE_RANGE.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
 
         // Check, that the count call also returns 1
         restServiceProviderMockMvc.perform(get("/api/service-providers/count?sort=id,desc&" + filter))
@@ -988,7 +875,6 @@ public class ServiceProviderResourceIntTest {
             .name(UPDATED_NAME)
             .profile_pic(UPDATED_PROFILE_PIC)
             .services(UPDATED_SERVICES)
-            .openHour(UPDATED_OPEN_HOUR)
             .address(UPDATED_ADDRESS)
             .phone(UPDATED_PHONE)
             .email(UPDATED_EMAIL)
@@ -996,8 +882,7 @@ public class ServiceProviderResourceIntTest {
             .instragram(UPDATED_INSTRAGRAM)
             .acceptCreditCard(UPDATED_ACCEPT_CREDIT_CARD)
             .parkingAvailable(UPDATED_PARKING_AVAILABLE)
-            .description(UPDATED_DESCRIPTION)
-            .priceRange(UPDATED_PRICE_RANGE);
+            .description(UPDATED_DESCRIPTION);
         ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(updatedServiceProvider);
 
         restServiceProviderMockMvc.perform(put("/api/service-providers")
@@ -1012,7 +897,6 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testServiceProvider.getProfile_pic()).isEqualTo(UPDATED_PROFILE_PIC);
         assertThat(testServiceProvider.getServices()).isEqualTo(UPDATED_SERVICES);
-        assertThat(testServiceProvider.getOpenHour()).isEqualTo(UPDATED_OPEN_HOUR);
         assertThat(testServiceProvider.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testServiceProvider.getPhone()).isEqualTo(UPDATED_PHONE);
         assertThat(testServiceProvider.getEmail()).isEqualTo(UPDATED_EMAIL);
@@ -1021,7 +905,6 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(UPDATED_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(UPDATED_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testServiceProvider.getPriceRange()).isEqualTo(UPDATED_PRICE_RANGE);
     }
 
     @Test

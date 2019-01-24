@@ -30,8 +30,6 @@ public class ServiceProviderCriteria implements Serializable {
 
     private StringFilter services;
 
-    private StringFilter openHour;
-
     private StringFilter address;
 
     private StringFilter phone;
@@ -47,8 +45,6 @@ public class ServiceProviderCriteria implements Serializable {
     private BooleanFilter parkingAvailable;
 
     private StringFilter description;
-
-    private StringFilter priceRange;
 
     public LongFilter getId() {
         return id;
@@ -80,14 +76,6 @@ public class ServiceProviderCriteria implements Serializable {
 
     public void setServices(StringFilter services) {
         this.services = services;
-    }
-
-    public StringFilter getOpenHour() {
-        return openHour;
-    }
-
-    public void setOpenHour(StringFilter openHour) {
-        this.openHour = openHour;
     }
 
     public StringFilter getAddress() {
@@ -154,14 +142,6 @@ public class ServiceProviderCriteria implements Serializable {
         this.description = description;
     }
 
-    public StringFilter getPriceRange() {
-        return priceRange;
-    }
-
-    public void setPriceRange(StringFilter priceRange) {
-        this.priceRange = priceRange;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -177,7 +157,6 @@ public class ServiceProviderCriteria implements Serializable {
             Objects.equals(name, that.name) &&
             Objects.equals(profile_pic, that.profile_pic) &&
             Objects.equals(services, that.services) &&
-            Objects.equals(openHour, that.openHour) &&
             Objects.equals(address, that.address) &&
             Objects.equals(phone, that.phone) &&
             Objects.equals(email, that.email) &&
@@ -185,8 +164,7 @@ public class ServiceProviderCriteria implements Serializable {
             Objects.equals(instragram, that.instragram) &&
             Objects.equals(acceptCreditCard, that.acceptCreditCard) &&
             Objects.equals(parkingAvailable, that.parkingAvailable) &&
-            Objects.equals(description, that.description) &&
-            Objects.equals(priceRange, that.priceRange);
+            Objects.equals(description, that.description);
     }
 
     @Override
@@ -196,7 +174,6 @@ public class ServiceProviderCriteria implements Serializable {
         name,
         profile_pic,
         services,
-        openHour,
         address,
         phone,
         email,
@@ -204,8 +181,7 @@ public class ServiceProviderCriteria implements Serializable {
         instragram,
         acceptCreditCard,
         parkingAvailable,
-        description,
-        priceRange
+        description
         );
     }
 
@@ -216,7 +192,6 @@ public class ServiceProviderCriteria implements Serializable {
                 (name != null ? "name=" + name + ", " : "") +
                 (profile_pic != null ? "profile_pic=" + profile_pic + ", " : "") +
                 (services != null ? "services=" + services + ", " : "") +
-                (openHour != null ? "openHour=" + openHour + ", " : "") +
                 (address != null ? "address=" + address + ", " : "") +
                 (phone != null ? "phone=" + phone + ", " : "") +
                 (email != null ? "email=" + email + ", " : "") +
@@ -225,7 +200,6 @@ public class ServiceProviderCriteria implements Serializable {
                 (acceptCreditCard != null ? "acceptCreditCard=" + acceptCreditCard + ", " : "") +
                 (parkingAvailable != null ? "parkingAvailable=" + parkingAvailable + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
-                (priceRange != null ? "priceRange=" + priceRange + ", " : "") +
             "}";
     }
 

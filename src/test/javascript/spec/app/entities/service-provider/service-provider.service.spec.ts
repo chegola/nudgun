@@ -31,10 +31,8 @@ describe('Service Tests', () => {
                 'AAAAAAA',
                 'AAAAAAA',
                 'AAAAAAA',
-                'AAAAAAA',
                 false,
                 false,
-                'AAAAAAA',
                 'AAAAAAA'
             );
         });
@@ -73,7 +71,6 @@ describe('Service Tests', () => {
                         name: 'BBBBBB',
                         profile_pic: 'BBBBBB',
                         services: 'BBBBBB',
-                        openHour: 'BBBBBB',
                         address: 'BBBBBB',
                         phone: 'BBBBBB',
                         email: 'BBBBBB',
@@ -81,8 +78,7 @@ describe('Service Tests', () => {
                         instragram: 'BBBBBB',
                         acceptCreditCard: true,
                         parkingAvailable: true,
-                        description: 'BBBBBB',
-                        priceRange: 'BBBBBB'
+                        description: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -102,7 +98,6 @@ describe('Service Tests', () => {
                         name: 'BBBBBB',
                         profile_pic: 'BBBBBB',
                         services: 'BBBBBB',
-                        openHour: 'BBBBBB',
                         address: 'BBBBBB',
                         phone: 'BBBBBB',
                         email: 'BBBBBB',
@@ -110,8 +105,7 @@ describe('Service Tests', () => {
                         instragram: 'BBBBBB',
                         acceptCreditCard: true,
                         parkingAvailable: true,
-                        description: 'BBBBBB',
-                        priceRange: 'BBBBBB'
+                        description: 'BBBBBB'
                     },
                     elemDefault
                 );

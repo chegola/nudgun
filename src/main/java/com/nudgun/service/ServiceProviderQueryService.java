@@ -98,9 +98,6 @@ public class ServiceProviderQueryService extends QueryService<ServiceProvider> {
             if (criteria.getServices() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getServices(), ServiceProvider_.services));
             }
-            if (criteria.getOpenHour() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getOpenHour(), ServiceProvider_.openHour));
-            }
             if (criteria.getAddress() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getAddress(), ServiceProvider_.address));
             }
@@ -124,9 +121,6 @@ public class ServiceProviderQueryService extends QueryService<ServiceProvider> {
             }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), ServiceProvider_.description));
-            }
-            if (criteria.getPriceRange() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getPriceRange(), ServiceProvider_.priceRange));
             }
         }
         return specification;

@@ -18,7 +18,6 @@
             <th jhiSortBy="name"><span jhiTranslate="nudgunApp.serviceProvider.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="profile_pic"><span jhiTranslate="nudgunApp.serviceProvider.profile_pic">Profile Pic</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="services"><span jhiTranslate="nudgunApp.serviceProvider.services">Services</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="openHour"><span jhiTranslate="nudgunApp.serviceProvider.openHour">Open Hour</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="address"><span jhiTranslate="nudgunApp.serviceProvider.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="phone"><span jhiTranslate="nudgunApp.serviceProvider.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="email"><span jhiTranslate="nudgunApp.serviceProvider.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -27,7 +26,6 @@
             <th jhiSortBy="acceptCreditCard"><span jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard">Accept Credit Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="parkingAvailable"><span jhiTranslate="nudgunApp.serviceProvider.parkingAvailable">Parking Available</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span jhiTranslate="nudgunApp.serviceProvider.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="priceRange"><span jhiTranslate="nudgunApp.serviceProvider.priceRange">Price Range</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -37,7 +35,6 @@
                 <td>{{serviceProvider.name}}</td>
                 <td>{{serviceProvider.profile_pic}}</td>
                 <td>{{serviceProvider.services}}</td>
-                <td>{{serviceProvider.openHour}}</td>
                 <td>{{serviceProvider.address}}</td>
                 <td>{{serviceProvider.phone}}</td>
                 <td>{{serviceProvider.email}}</td>
@@ -46,7 +43,6 @@
                 <td>{{serviceProvider.acceptCreditCard}}</td>
                 <td>{{serviceProvider.parkingAvailable}}</td>
                 <td>{{serviceProvider.description}}</td>
-                <td>{{serviceProvider.priceRange}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

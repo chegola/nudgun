@@ -18,7 +18,6 @@
             "name": "Name",
             "profile_pic": "Profile Pic",
             "services": "Services",
-            "openHour": "Open Hour",
             "address": "Address",
             "phone": "Phone",
             "email": "Email",
@@ -26,8 +25,7 @@
             "instragram": "Instragram",
             "acceptCreditCard": "Accept Credit Card",
             "parkingAvailable": "Parking Available",
-            "description": "Description",
-            "priceRange": "Price Range"
+            "description": "Description"
         }
     }
 }

@@ -75,7 +75,6 @@ class ServiceProviderGatlingTest extends Simulation {
                 , "name":"SAMPLE_TEXT"
                 , "profile_pic":"SAMPLE_TEXT"
                 , "services":"SAMPLE_TEXT"
-                , "openHour":"SAMPLE_TEXT"
                 , "address":"SAMPLE_TEXT"
                 , "phone":"SAMPLE_TEXT"
                 , "email":"SAMPLE_TEXT"
@@ -84,7 +83,6 @@ class ServiceProviderGatlingTest extends Simulation {
                 , "acceptCreditCard":null
                 , "parkingAvailable":null
                 , "description":"SAMPLE_TEXT"
-                , "priceRange":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_serviceProvider_url"))).exitHereIfFailed

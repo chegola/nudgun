@@ -42,19 +42,16 @@ describe('ServiceProvider e2e test', () => {
             serviceProviderUpdatePage.setNameInput('name'),
             serviceProviderUpdatePage.setProfile_picInput('profile_pic'),
             serviceProviderUpdatePage.setServicesInput('services'),
-            serviceProviderUpdatePage.setOpenHourInput('openHour'),
             serviceProviderUpdatePage.setAddressInput('address'),
             serviceProviderUpdatePage.setPhoneInput('phone'),
             serviceProviderUpdatePage.setEmailInput('email'),
             serviceProviderUpdatePage.setFacebookInput('facebook'),
             serviceProviderUpdatePage.setInstragramInput('instragram'),
-            serviceProviderUpdatePage.setDescriptionInput('description'),
-            serviceProviderUpdatePage.setPriceRangeInput('priceRange')
+            serviceProviderUpdatePage.setDescriptionInput('description')
         ]);
         expect(await serviceProviderUpdatePage.getNameInput()).to.eq('name');
         expect(await serviceProviderUpdatePage.getProfile_picInput()).to.eq('profile_pic');
         expect(await serviceProviderUpdatePage.getServicesInput()).to.eq('services');
-        expect(await serviceProviderUpdatePage.getOpenHourInput()).to.eq('openHour');
         expect(await serviceProviderUpdatePage.getAddressInput()).to.eq('address');
         expect(await serviceProviderUpdatePage.getPhoneInput()).to.eq('phone');
         expect(await serviceProviderUpdatePage.getEmailInput()).to.eq('email');
@@ -77,7 +74,6 @@ describe('ServiceProvider e2e test', () => {
             expect(await serviceProviderUpdatePage.getParkingAvailableInput().isSelected()).to.be.true;
         }
         expect(await serviceProviderUpdatePage.getDescriptionInput()).to.eq('description');
-        expect(await serviceProviderUpdatePage.getPriceRangeInput()).to.eq('priceRange');
         await serviceProviderUpdatePage.save();
         expect(await serviceProviderUpdatePage.getSaveButton().isPresent()).to.be.false;
 

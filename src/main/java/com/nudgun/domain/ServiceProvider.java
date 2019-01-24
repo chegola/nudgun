@@ -13,7 +13,7 @@ import java.util.Objects;
  * A ServiceProvider.
  */
 @Entity
-@Table(name = "ng_service_provider")
+@Table(name = "nu_service_provider")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class ServiceProvider implements Serializable {
 
@@ -38,10 +38,6 @@ public class ServiceProvider implements Serializable {
     @Size(max = 100)
     @Column(name = "services", length = 100, nullable = false)
     private String services;
-
-    @NotNull
-    @Column(name = "open_hour", nullable = false)
-    private String openHour;
 
     @NotNull
     @Column(name = "address", nullable = false)
@@ -70,9 +66,6 @@ public class ServiceProvider implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "price_range")
-    private String priceRange;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -120,19 +113,6 @@ public class ServiceProvider implements Serializable {
 
     public void setServices(String services) {
         this.services = services;
-    }
-
-    public String getOpenHour() {
-        return openHour;
-    }
-
-    public ServiceProvider openHour(String openHour) {
-        this.openHour = openHour;
-        return this;
-    }
-
-    public void setOpenHour(String openHour) {
-        this.openHour = openHour;
     }
 
     public String getAddress() {
@@ -238,19 +218,6 @@ public class ServiceProvider implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getPriceRange() {
-        return priceRange;
-    }
-
-    public ServiceProvider priceRange(String priceRange) {
-        this.priceRange = priceRange;
-        return this;
-    }
-
-    public void setPriceRange(String priceRange) {
-        this.priceRange = priceRange;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -280,7 +247,6 @@ public class ServiceProvider implements Serializable {
             ", name='" + getName() + "'" +
             ", profile_pic='" + getProfile_pic() + "'" +
             ", services='" + getServices() + "'" +
-            ", openHour='" + getOpenHour() + "'" +
             ", address='" + getAddress() + "'" +
             ", phone='" + getPhone() + "'" +
             ", email='" + getEmail() + "'" +
@@ -289,7 +255,6 @@ public class ServiceProvider implements Serializable {
             ", acceptCreditCard='" + isAcceptCreditCard() + "'" +
             ", parkingAvailable='" + isParkingAvailable() + "'" +
             ", description='" + getDescription() + "'" +
-            ", priceRange='" + getPriceRange() + "'" +
             "}";
     }
 }

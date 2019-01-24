@@ -29,7 +29,6 @@ export class ServiceProviderUpdatePage {
     nameInput = element(by.id('field_name'));
     profile_picInput = element(by.id('field_profile_pic'));
     servicesInput = element(by.id('field_services'));
-    openHourInput = element(by.id('field_openHour'));
     addressInput = element(by.id('field_address'));
     phoneInput = element(by.id('field_phone'));
     emailInput = element(by.id('field_email'));
@@ -38,7 +37,6 @@ export class ServiceProviderUpdatePage {
     acceptCreditCardInput = element(by.id('field_acceptCreditCard'));
     parkingAvailableInput = element(by.id('field_parkingAvailable'));
     descriptionInput = element(by.id('field_description'));
-    priceRangeInput = element(by.id('field_priceRange'));
 
     async getPageTitle() {
         return this.pageTitle.getAttribute('jhiTranslate');
@@ -66,14 +64,6 @@ export class ServiceProviderUpdatePage {
 
     async getServicesInput() {
         return this.servicesInput.getAttribute('value');
-    }
-
-    async setOpenHourInput(openHour) {
-        await this.openHourInput.sendKeys(openHour);
-    }
-
-    async getOpenHourInput() {
-        return this.openHourInput.getAttribute('value');
     }
 
     async setAddressInput(address) {
@@ -128,14 +118,6 @@ export class ServiceProviderUpdatePage {
 
     async getDescriptionInput() {
         return this.descriptionInput.getAttribute('value');
-    }
-
-    async setPriceRangeInput(priceRange) {
-        await this.priceRangeInput.sendKeys(priceRange);
-    }
-
-    async getPriceRangeInput() {
-        return this.priceRangeInput.getAttribute('value');
     }
 
     async save() {
