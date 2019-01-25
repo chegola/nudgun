@@ -27,9 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
 
+import static com.nudgun.web.rest.TestUtil.sameInstant;
 import static com.nudgun.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -77,6 +82,9 @@ public class ServiceProviderResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_SERVICE_HOUR = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_SERVICE_HOUR = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ServiceProviderRepository serviceProviderRepository;
@@ -139,7 +147,8 @@ public class ServiceProviderResourceIntTest {
             .instragram(DEFAULT_INSTRAGRAM)
             .acceptCreditCard(DEFAULT_ACCEPT_CREDIT_CARD)
             .parkingAvailable(DEFAULT_PARKING_AVAILABLE)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .serviceHour(DEFAULT_SERVICE_HOUR);
         return serviceProvider;
     }
 
@@ -175,6 +184,7 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(DEFAULT_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(DEFAULT_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testServiceProvider.getServiceHour()).isEqualTo(DEFAULT_SERVICE_HOUR);
     }
 
     @Test
@@ -351,7 +361,8 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].serviceHour").value(hasItem(sameInstant(DEFAULT_SERVICE_HOUR))));
     }
     
     @Test
@@ -375,7 +386,8 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.instragram").value(DEFAULT_INSTRAGRAM.toString()))
             .andExpect(jsonPath("$.acceptCreditCard").value(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue()))
             .andExpect(jsonPath("$.parkingAvailable").value(DEFAULT_PARKING_AVAILABLE.booleanValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.serviceHour").value(sameInstant(DEFAULT_SERVICE_HOUR)));
     }
 
     @Test
@@ -806,6 +818,72 @@ public class ServiceProviderResourceIntTest {
         // Get all the serviceProviderList where description is null
         defaultServiceProviderShouldNotBeFound("description.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceHourIsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceHour equals to DEFAULT_SERVICE_HOUR
+        defaultServiceProviderShouldBeFound("serviceHour.equals=" + DEFAULT_SERVICE_HOUR);
+
+        // Get all the serviceProviderList where serviceHour equals to UPDATED_SERVICE_HOUR
+        defaultServiceProviderShouldNotBeFound("serviceHour.equals=" + UPDATED_SERVICE_HOUR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceHourIsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceHour in DEFAULT_SERVICE_HOUR or UPDATED_SERVICE_HOUR
+        defaultServiceProviderShouldBeFound("serviceHour.in=" + DEFAULT_SERVICE_HOUR + "," + UPDATED_SERVICE_HOUR);
+
+        // Get all the serviceProviderList where serviceHour equals to UPDATED_SERVICE_HOUR
+        defaultServiceProviderShouldNotBeFound("serviceHour.in=" + UPDATED_SERVICE_HOUR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceHourIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceHour is not null
+        defaultServiceProviderShouldBeFound("serviceHour.specified=true");
+
+        // Get all the serviceProviderList where serviceHour is null
+        defaultServiceProviderShouldNotBeFound("serviceHour.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceHourIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceHour greater than or equals to DEFAULT_SERVICE_HOUR
+        defaultServiceProviderShouldBeFound("serviceHour.greaterOrEqualThan=" + DEFAULT_SERVICE_HOUR);
+
+        // Get all the serviceProviderList where serviceHour greater than or equals to UPDATED_SERVICE_HOUR
+        defaultServiceProviderShouldNotBeFound("serviceHour.greaterOrEqualThan=" + UPDATED_SERVICE_HOUR);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceHourIsLessThanSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceHour less than or equals to DEFAULT_SERVICE_HOUR
+        defaultServiceProviderShouldNotBeFound("serviceHour.lessThan=" + DEFAULT_SERVICE_HOUR);
+
+        // Get all the serviceProviderList where serviceHour less than or equals to UPDATED_SERVICE_HOUR
+        defaultServiceProviderShouldBeFound("serviceHour.lessThan=" + UPDATED_SERVICE_HOUR);
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -824,7 +902,8 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].serviceHour").value(hasItem(sameInstant(DEFAULT_SERVICE_HOUR))));
 
         // Check, that the count call also returns 1
         restServiceProviderMockMvc.perform(get("/api/service-providers/count?sort=id,desc&" + filter))
@@ -882,7 +961,8 @@ public class ServiceProviderResourceIntTest {
             .instragram(UPDATED_INSTRAGRAM)
             .acceptCreditCard(UPDATED_ACCEPT_CREDIT_CARD)
             .parkingAvailable(UPDATED_PARKING_AVAILABLE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .serviceHour(UPDATED_SERVICE_HOUR);
         ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(updatedServiceProvider);
 
         restServiceProviderMockMvc.perform(put("/api/service-providers")
@@ -905,6 +985,7 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(UPDATED_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(UPDATED_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testServiceProvider.getServiceHour()).isEqualTo(UPDATED_SERVICE_HOUR);
     }
 
     @Test

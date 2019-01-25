@@ -1,5 +1,6 @@
 package com.nudgun.service.dto;
 
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -42,6 +43,8 @@ public class ServiceProviderDTO implements Serializable {
     private Boolean parkingAvailable;
 
     private String description;
+
+    private ZonedDateTime serviceHour;
 
     public Long getId() {
         return id;
@@ -139,6 +142,14 @@ public class ServiceProviderDTO implements Serializable {
         this.description = description;
     }
 
+    public ZonedDateTime getServiceHour() {
+        return serviceHour;
+    }
+
+    public void setServiceHour(ZonedDateTime serviceHour) {
+        this.serviceHour = serviceHour;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -175,6 +186,7 @@ public class ServiceProviderDTO implements Serializable {
             ", acceptCreditCard='" + isAcceptCreditCard() + "'" +
             ", parkingAvailable='" + isParkingAvailable() + "'" +
             ", description='" + getDescription() + "'" +
+            ", serviceHour='" + getServiceHour() + "'" +
             "}";
     }
 }

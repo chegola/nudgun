@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.ZonedDateTimeFilter;
 
 /**
  * Criteria class for the ServiceProvider entity. This class is used in ServiceProviderResource to
@@ -45,6 +46,8 @@ public class ServiceProviderCriteria implements Serializable {
     private BooleanFilter parkingAvailable;
 
     private StringFilter description;
+
+    private ZonedDateTimeFilter serviceHour;
 
     public LongFilter getId() {
         return id;
@@ -142,6 +145,14 @@ public class ServiceProviderCriteria implements Serializable {
         this.description = description;
     }
 
+    public ZonedDateTimeFilter getServiceHour() {
+        return serviceHour;
+    }
+
+    public void setServiceHour(ZonedDateTimeFilter serviceHour) {
+        this.serviceHour = serviceHour;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -164,7 +175,8 @@ public class ServiceProviderCriteria implements Serializable {
             Objects.equals(instragram, that.instragram) &&
             Objects.equals(acceptCreditCard, that.acceptCreditCard) &&
             Objects.equals(parkingAvailable, that.parkingAvailable) &&
-            Objects.equals(description, that.description);
+            Objects.equals(description, that.description) &&
+            Objects.equals(serviceHour, that.serviceHour);
     }
 
     @Override
@@ -181,7 +193,8 @@ public class ServiceProviderCriteria implements Serializable {
         instragram,
         acceptCreditCard,
         parkingAvailable,
-        description
+        description,
+        serviceHour
         );
     }
 
@@ -200,6 +213,7 @@ public class ServiceProviderCriteria implements Serializable {
                 (acceptCreditCard != null ? "acceptCreditCard=" + acceptCreditCard + ", " : "") +
                 (parkingAvailable != null ? "parkingAvailable=" + parkingAvailable + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (serviceHour != null ? "serviceHour=" + serviceHour + ", " : "") +
             "}";
     }
 

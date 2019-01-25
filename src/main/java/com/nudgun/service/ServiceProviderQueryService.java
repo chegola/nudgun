@@ -122,6 +122,9 @@ public class ServiceProviderQueryService extends QueryService<ServiceProvider> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), ServiceProvider_.description));
             }
+            if (criteria.getServiceHour() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getServiceHour(), ServiceProvider_.serviceHour));
+            }
         }
         return specification;
     }

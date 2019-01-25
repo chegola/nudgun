@@ -16,8 +16,8 @@
     <!--
         Added the entity ServiceProvider.
     -->
-    <changeSet id="20190121162230-1" author="jhipster">
-        <createTable tableName="ng_service_provider">
+    <changeSet id="0.0.1-001" author="jhipster">
+        <createTable tableName="nu_service_provider">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -30,10 +30,6 @@
             </column>
 
             <column name="services" type="varchar(100)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="open_hour" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
@@ -69,9 +65,14 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="service_hour" type="datetime">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        
+        <dropDefaultValue tableName="nu_service_provider" columnName="service_hour" columnDataType="datetime"/>
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 </databaseChangeLog>

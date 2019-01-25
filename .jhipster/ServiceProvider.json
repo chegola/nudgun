@@ -74,6 +74,10 @@
             "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "serviceHour",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20190121162230",
