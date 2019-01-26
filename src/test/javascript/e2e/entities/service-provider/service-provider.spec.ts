@@ -1,5 +1,5 @@
 /* tslint:disable no-unused-expression */
-import { browser, ExpectedConditions as ec, promise } from 'protractor';
+import { browser, ExpectedConditions as ec, protractor, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { ServiceProviderComponentsPage, ServiceProviderDeleteDialog, ServiceProviderUpdatePage } from './service-provider.page-object';
@@ -47,7 +47,9 @@ describe('ServiceProvider e2e test', () => {
             serviceProviderUpdatePage.setEmailInput('email'),
             serviceProviderUpdatePage.setFacebookInput('facebook'),
             serviceProviderUpdatePage.setInstragramInput('instragram'),
-            serviceProviderUpdatePage.setDescriptionInput('description')
+            serviceProviderUpdatePage.setDescriptionInput('description'),
+            serviceProviderUpdatePage.setServiceStartInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+            serviceProviderUpdatePage.setServiceEndInput('01/01/2001' + protractor.Key.TAB + '02:30AM')
         ]);
         expect(await serviceProviderUpdatePage.getNameInput()).to.eq('name');
         expect(await serviceProviderUpdatePage.getProfile_picInput()).to.eq('profile_pic');
@@ -74,6 +76,8 @@ describe('ServiceProvider e2e test', () => {
             expect(await serviceProviderUpdatePage.getParkingAvailableInput().isSelected()).to.be.true;
         }
         expect(await serviceProviderUpdatePage.getDescriptionInput()).to.eq('description');
+        expect(await serviceProviderUpdatePage.getServiceStartInput()).to.contain('2001-01-01T02:30');
+        expect(await serviceProviderUpdatePage.getServiceEndInput()).to.contain('2001-01-01T02:30');
         await serviceProviderUpdatePage.save();
         expect(await serviceProviderUpdatePage.getSaveButton().isPresent()).to.be.false;
 

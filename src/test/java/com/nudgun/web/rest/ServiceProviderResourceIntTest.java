@@ -27,9 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
 
+import static com.nudgun.web.rest.TestUtil.sameInstant;
 import static com.nudgun.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -77,6 +82,12 @@ public class ServiceProviderResourceIntTest {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_SERVICE_START = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_SERVICE_START = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final ZonedDateTime DEFAULT_SERVICE_END = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_SERVICE_END = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ServiceProviderRepository serviceProviderRepository;
@@ -139,7 +150,9 @@ public class ServiceProviderResourceIntTest {
             .instragram(DEFAULT_INSTRAGRAM)
             .acceptCreditCard(DEFAULT_ACCEPT_CREDIT_CARD)
             .parkingAvailable(DEFAULT_PARKING_AVAILABLE)
-            .description(DEFAULT_DESCRIPTION);
+            .description(DEFAULT_DESCRIPTION)
+            .serviceStart(DEFAULT_SERVICE_START)
+            .serviceEnd(DEFAULT_SERVICE_END);
         return serviceProvider;
     }
 
@@ -175,6 +188,8 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(DEFAULT_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(DEFAULT_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testServiceProvider.getServiceStart()).isEqualTo(DEFAULT_SERVICE_START);
+        assertThat(testServiceProvider.getServiceEnd()).isEqualTo(DEFAULT_SERVICE_END);
     }
 
     @Test
@@ -332,6 +347,44 @@ public class ServiceProviderResourceIntTest {
 
     @Test
     @Transactional
+    public void checkServiceStartIsRequired() throws Exception {
+        int databaseSizeBeforeTest = serviceProviderRepository.findAll().size();
+        // set the field null
+        serviceProvider.setServiceStart(null);
+
+        // Create the ServiceProvider, which fails.
+        ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(serviceProvider);
+
+        restServiceProviderMockMvc.perform(post("/api/service-providers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(serviceProviderDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ServiceProvider> serviceProviderList = serviceProviderRepository.findAll();
+        assertThat(serviceProviderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkServiceEndIsRequired() throws Exception {
+        int databaseSizeBeforeTest = serviceProviderRepository.findAll().size();
+        // set the field null
+        serviceProvider.setServiceEnd(null);
+
+        // Create the ServiceProvider, which fails.
+        ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(serviceProvider);
+
+        restServiceProviderMockMvc.perform(post("/api/service-providers")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(serviceProviderDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<ServiceProvider> serviceProviderList = serviceProviderRepository.findAll();
+        assertThat(serviceProviderList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllServiceProviders() throws Exception {
         // Initialize the database
         serviceProviderRepository.saveAndFlush(serviceProvider);
@@ -351,7 +404,9 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].serviceStart").value(hasItem(sameInstant(DEFAULT_SERVICE_START))))
+            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))));
     }
     
     @Test
@@ -375,7 +430,9 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.instragram").value(DEFAULT_INSTRAGRAM.toString()))
             .andExpect(jsonPath("$.acceptCreditCard").value(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue()))
             .andExpect(jsonPath("$.parkingAvailable").value(DEFAULT_PARKING_AVAILABLE.booleanValue()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.serviceStart").value(sameInstant(DEFAULT_SERVICE_START)))
+            .andExpect(jsonPath("$.serviceEnd").value(sameInstant(DEFAULT_SERVICE_END)));
     }
 
     @Test
@@ -806,6 +863,138 @@ public class ServiceProviderResourceIntTest {
         // Get all the serviceProviderList where description is null
         defaultServiceProviderShouldNotBeFound("description.specified=false");
     }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceStartIsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceStart equals to DEFAULT_SERVICE_START
+        defaultServiceProviderShouldBeFound("serviceStart.equals=" + DEFAULT_SERVICE_START);
+
+        // Get all the serviceProviderList where serviceStart equals to UPDATED_SERVICE_START
+        defaultServiceProviderShouldNotBeFound("serviceStart.equals=" + UPDATED_SERVICE_START);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceStartIsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceStart in DEFAULT_SERVICE_START or UPDATED_SERVICE_START
+        defaultServiceProviderShouldBeFound("serviceStart.in=" + DEFAULT_SERVICE_START + "," + UPDATED_SERVICE_START);
+
+        // Get all the serviceProviderList where serviceStart equals to UPDATED_SERVICE_START
+        defaultServiceProviderShouldNotBeFound("serviceStart.in=" + UPDATED_SERVICE_START);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceStartIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceStart is not null
+        defaultServiceProviderShouldBeFound("serviceStart.specified=true");
+
+        // Get all the serviceProviderList where serviceStart is null
+        defaultServiceProviderShouldNotBeFound("serviceStart.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceStartIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceStart greater than or equals to DEFAULT_SERVICE_START
+        defaultServiceProviderShouldBeFound("serviceStart.greaterOrEqualThan=" + DEFAULT_SERVICE_START);
+
+        // Get all the serviceProviderList where serviceStart greater than or equals to UPDATED_SERVICE_START
+        defaultServiceProviderShouldNotBeFound("serviceStart.greaterOrEqualThan=" + UPDATED_SERVICE_START);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceStartIsLessThanSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceStart less than or equals to DEFAULT_SERVICE_START
+        defaultServiceProviderShouldNotBeFound("serviceStart.lessThan=" + DEFAULT_SERVICE_START);
+
+        // Get all the serviceProviderList where serviceStart less than or equals to UPDATED_SERVICE_START
+        defaultServiceProviderShouldBeFound("serviceStart.lessThan=" + UPDATED_SERVICE_START);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceEndIsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceEnd equals to DEFAULT_SERVICE_END
+        defaultServiceProviderShouldBeFound("serviceEnd.equals=" + DEFAULT_SERVICE_END);
+
+        // Get all the serviceProviderList where serviceEnd equals to UPDATED_SERVICE_END
+        defaultServiceProviderShouldNotBeFound("serviceEnd.equals=" + UPDATED_SERVICE_END);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceEndIsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceEnd in DEFAULT_SERVICE_END or UPDATED_SERVICE_END
+        defaultServiceProviderShouldBeFound("serviceEnd.in=" + DEFAULT_SERVICE_END + "," + UPDATED_SERVICE_END);
+
+        // Get all the serviceProviderList where serviceEnd equals to UPDATED_SERVICE_END
+        defaultServiceProviderShouldNotBeFound("serviceEnd.in=" + UPDATED_SERVICE_END);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceEndIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceEnd is not null
+        defaultServiceProviderShouldBeFound("serviceEnd.specified=true");
+
+        // Get all the serviceProviderList where serviceEnd is null
+        defaultServiceProviderShouldNotBeFound("serviceEnd.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceEndIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceEnd greater than or equals to DEFAULT_SERVICE_END
+        defaultServiceProviderShouldBeFound("serviceEnd.greaterOrEqualThan=" + DEFAULT_SERVICE_END);
+
+        // Get all the serviceProviderList where serviceEnd greater than or equals to UPDATED_SERVICE_END
+        defaultServiceProviderShouldNotBeFound("serviceEnd.greaterOrEqualThan=" + UPDATED_SERVICE_END);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByServiceEndIsLessThanSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where serviceEnd less than or equals to DEFAULT_SERVICE_END
+        defaultServiceProviderShouldNotBeFound("serviceEnd.lessThan=" + DEFAULT_SERVICE_END);
+
+        // Get all the serviceProviderList where serviceEnd less than or equals to UPDATED_SERVICE_END
+        defaultServiceProviderShouldBeFound("serviceEnd.lessThan=" + UPDATED_SERVICE_END);
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -824,7 +1013,9 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].instragram").value(hasItem(DEFAULT_INSTRAGRAM.toString())))
             .andExpect(jsonPath("$.[*].acceptCreditCard").value(hasItem(DEFAULT_ACCEPT_CREDIT_CARD.booleanValue())))
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].serviceStart").value(hasItem(sameInstant(DEFAULT_SERVICE_START))))
+            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))));
 
         // Check, that the count call also returns 1
         restServiceProviderMockMvc.perform(get("/api/service-providers/count?sort=id,desc&" + filter))
@@ -882,7 +1073,9 @@ public class ServiceProviderResourceIntTest {
             .instragram(UPDATED_INSTRAGRAM)
             .acceptCreditCard(UPDATED_ACCEPT_CREDIT_CARD)
             .parkingAvailable(UPDATED_PARKING_AVAILABLE)
-            .description(UPDATED_DESCRIPTION);
+            .description(UPDATED_DESCRIPTION)
+            .serviceStart(UPDATED_SERVICE_START)
+            .serviceEnd(UPDATED_SERVICE_END);
         ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(updatedServiceProvider);
 
         restServiceProviderMockMvc.perform(put("/api/service-providers")
@@ -905,6 +1098,8 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.isAcceptCreditCard()).isEqualTo(UPDATED_ACCEPT_CREDIT_CARD);
         assertThat(testServiceProvider.isParkingAvailable()).isEqualTo(UPDATED_PARKING_AVAILABLE);
         assertThat(testServiceProvider.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testServiceProvider.getServiceStart()).isEqualTo(UPDATED_SERVICE_START);
+        assertThat(testServiceProvider.getServiceEnd()).isEqualTo(UPDATED_SERVICE_END);
     }
 
     @Test

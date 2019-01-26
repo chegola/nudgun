@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -66,6 +67,14 @@ public class ServiceProvider implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+    @NotNull
+    @Column(name = "service_start", nullable = false)
+    private ZonedDateTime serviceStart;
+
+    @NotNull
+    @Column(name = "service_end", nullable = false)
+    private ZonedDateTime serviceEnd;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -218,6 +227,32 @@ public class ServiceProvider implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public ZonedDateTime getServiceStart() {
+        return serviceStart;
+    }
+
+    public ServiceProvider serviceStart(ZonedDateTime serviceStart) {
+        this.serviceStart = serviceStart;
+        return this;
+    }
+
+    public void setServiceStart(ZonedDateTime serviceStart) {
+        this.serviceStart = serviceStart;
+    }
+
+    public ZonedDateTime getServiceEnd() {
+        return serviceEnd;
+    }
+
+    public ServiceProvider serviceEnd(ZonedDateTime serviceEnd) {
+        this.serviceEnd = serviceEnd;
+        return this;
+    }
+
+    public void setServiceEnd(ZonedDateTime serviceEnd) {
+        this.serviceEnd = serviceEnd;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -255,6 +290,8 @@ public class ServiceProvider implements Serializable {
             ", acceptCreditCard='" + isAcceptCreditCard() + "'" +
             ", parkingAvailable='" + isParkingAvailable() + "'" +
             ", description='" + getDescription() + "'" +
+            ", serviceStart='" + getServiceStart() + "'" +
+            ", serviceEnd='" + getServiceEnd() + "'" +
             "}";
     }
 }

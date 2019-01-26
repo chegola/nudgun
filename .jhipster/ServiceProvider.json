@@ -74,6 +74,20 @@
             "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": []
+        },
+        {
+            "fieldName": "serviceStart",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "serviceEnd",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20190121162230",

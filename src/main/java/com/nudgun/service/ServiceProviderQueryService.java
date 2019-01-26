@@ -122,6 +122,12 @@ public class ServiceProviderQueryService extends QueryService<ServiceProvider> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), ServiceProvider_.description));
             }
+            if (criteria.getServiceStart() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getServiceStart(), ServiceProvider_.serviceStart));
+            }
+            if (criteria.getServiceEnd() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getServiceEnd(), ServiceProvider_.serviceEnd));
+            }
         }
         return specification;
     }

@@ -83,6 +83,8 @@ class ServiceProviderGatlingTest extends Simulation {
                 , "acceptCreditCard":null
                 , "parkingAvailable":null
                 , "description":"SAMPLE_TEXT"
+                , "serviceStart":"2020-01-01T00:00:00.000Z"
+                , "serviceEnd":"2020-01-01T00:00:00.000Z"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_serviceProvider_url"))).exitHereIfFailed

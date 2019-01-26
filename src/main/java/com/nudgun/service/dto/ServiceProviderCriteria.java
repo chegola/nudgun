@@ -9,6 +9,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.ZonedDateTimeFilter;
 
 /**
  * Criteria class for the ServiceProvider entity. This class is used in ServiceProviderResource to
@@ -45,6 +46,10 @@ public class ServiceProviderCriteria implements Serializable {
     private BooleanFilter parkingAvailable;
 
     private StringFilter description;
+
+    private ZonedDateTimeFilter serviceStart;
+
+    private ZonedDateTimeFilter serviceEnd;
 
     public LongFilter getId() {
         return id;
@@ -142,6 +147,22 @@ public class ServiceProviderCriteria implements Serializable {
         this.description = description;
     }
 
+    public ZonedDateTimeFilter getServiceStart() {
+        return serviceStart;
+    }
+
+    public void setServiceStart(ZonedDateTimeFilter serviceStart) {
+        this.serviceStart = serviceStart;
+    }
+
+    public ZonedDateTimeFilter getServiceEnd() {
+        return serviceEnd;
+    }
+
+    public void setServiceEnd(ZonedDateTimeFilter serviceEnd) {
+        this.serviceEnd = serviceEnd;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -164,7 +185,9 @@ public class ServiceProviderCriteria implements Serializable {
             Objects.equals(instragram, that.instragram) &&
             Objects.equals(acceptCreditCard, that.acceptCreditCard) &&
             Objects.equals(parkingAvailable, that.parkingAvailable) &&
-            Objects.equals(description, that.description);
+            Objects.equals(description, that.description) &&
+            Objects.equals(serviceStart, that.serviceStart) &&
+            Objects.equals(serviceEnd, that.serviceEnd);
     }
 
     @Override
@@ -181,7 +204,9 @@ public class ServiceProviderCriteria implements Serializable {
         instragram,
         acceptCreditCard,
         parkingAvailable,
-        description
+        description,
+        serviceStart,
+        serviceEnd
         );
     }
 
@@ -200,6 +225,8 @@ public class ServiceProviderCriteria implements Serializable {
                 (acceptCreditCard != null ? "acceptCreditCard=" + acceptCreditCard + ", " : "") +
                 (parkingAvailable != null ? "parkingAvailable=" + parkingAvailable + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (serviceStart != null ? "serviceStart=" + serviceStart + ", " : "") +
+                (serviceEnd != null ? "serviceEnd=" + serviceEnd + ", " : "") +
             "}";
     }
 

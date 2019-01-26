@@ -118,6 +118,40 @@
                     <input type="text" class="form-control" name="description" id="field_description"
                         [(ngModel)]="serviceProvider.description" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.serviceStart" for="field_serviceStart">Service Start</label>
+                    <div class="d-flex">
+                        <input id="field_serviceStart" type="datetime-local" class="form-control" name="serviceStart" [(ngModel)]="serviceStart"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.serviceStart?.dirty && editForm.controls.serviceStart?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.serviceStart?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.serviceStart?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.serviceEnd" for="field_serviceEnd">Service End</label>
+                    <div class="d-flex">
+                        <input id="field_serviceEnd" type="datetime-local" class="form-control" name="serviceEnd" [(ngModel)]="serviceEnd"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.serviceEnd?.dirty && editForm.controls.serviceEnd?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.serviceEnd?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.serviceEnd?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
 
             </div>
             <div>
