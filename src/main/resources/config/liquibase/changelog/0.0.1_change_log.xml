@@ -65,10 +65,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="service_hour" type="datetime">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="nu_service_provider" columnName="service_hour" columnDataType="datetime"/>

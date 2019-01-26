@@ -1,5 +1,3 @@
-import { Moment } from 'moment';
-
 export interface IServiceProvider {
     id?: number;
     name?: string;
@@ -13,7 +11,6 @@ export interface IServiceProvider {
     acceptCreditCard?: boolean;
     parkingAvailable?: boolean;
     description?: string;
-    serviceHour?: Moment;
 }
 
 export class ServiceProvider implements IServiceProvider {
@@ -29,8 +26,7 @@ export class ServiceProvider implements IServiceProvider {
         public instragram?: string,
         public acceptCreditCard?: boolean,
         public parkingAvailable?: boolean,
-        public description?: string,
-        public serviceHour?: Moment
+        public description?: string
     ) {
         this.acceptCreditCard = this.acceptCreditCard || false;
         this.parkingAvailable = this.parkingAvailable || false;

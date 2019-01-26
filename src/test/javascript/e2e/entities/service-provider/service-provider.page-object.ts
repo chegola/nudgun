@@ -37,7 +37,6 @@ export class ServiceProviderUpdatePage {
     acceptCreditCardInput = element(by.id('field_acceptCreditCard'));
     parkingAvailableInput = element(by.id('field_parkingAvailable'));
     descriptionInput = element(by.id('field_description'));
-    serviceHourInput = element(by.id('field_serviceHour'));
 
     async getPageTitle() {
         return this.pageTitle.getAttribute('jhiTranslate');
@@ -119,14 +118,6 @@ export class ServiceProviderUpdatePage {
 
     async getDescriptionInput() {
         return this.descriptionInput.getAttribute('value');
-    }
-
-    async setServiceHourInput(serviceHour) {
-        await this.serviceHourInput.sendKeys(serviceHour);
-    }
-
-    async getServiceHourInput() {
-        return this.serviceHourInput.getAttribute('value');
     }
 
     async save() {

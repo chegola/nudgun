@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -67,9 +66,6 @@ public class ServiceProvider implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "service_hour")
-    private ZonedDateTime serviceHour;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -222,19 +218,6 @@ public class ServiceProvider implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public ZonedDateTime getServiceHour() {
-        return serviceHour;
-    }
-
-    public ServiceProvider serviceHour(ZonedDateTime serviceHour) {
-        this.serviceHour = serviceHour;
-        return this;
-    }
-
-    public void setServiceHour(ZonedDateTime serviceHour) {
-        this.serviceHour = serviceHour;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -272,7 +255,6 @@ public class ServiceProvider implements Serializable {
             ", acceptCreditCard='" + isAcceptCreditCard() + "'" +
             ", parkingAvailable='" + isParkingAvailable() + "'" +
             ", description='" + getDescription() + "'" +
-            ", serviceHour='" + getServiceHour() + "'" +
             "}";
     }
 }
