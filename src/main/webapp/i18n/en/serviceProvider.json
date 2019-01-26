@@ -3,8 +3,8 @@
         "serviceProvider": {
             "home": {
                 "title": "Service Providers",
-                "createLabel": "Create a new Service Provider",
-                "createOrEditLabel": "Create or edit a Service Provider"
+                "createLabel": "Service Provider Registration",
+                "createOrEditLabel": "Service Provider Registration"
             },
             "created": "A new Service Provider is created with identifier {{ param }}",
             "updated": "A Service Provider is updated with identifier {{ param }}",
@@ -15,9 +15,9 @@
             "detail": {
                 "title": "Service Provider"
             },
-            "name": "Name",
-            "profile_pic": "Profile Pic",
-            "services": "Services",
+            "name": "Shop name",
+            "profile_pic": "Shop Profile Pic",
+            "services": "List of available services",
             "address": "Address",
             "phone": "Phone",
             "email": "Email",
@@ -26,8 +26,8 @@
             "acceptCreditCard": "Accept Credit Card",
             "parkingAvailable": "Parking Available",
             "description": "Description",
-            "serviceStart": "Service Start",
-            "serviceEnd": "Service End"
+            "serviceStart": "Opening hour",
+            "serviceEnd": "Closing hour"
         }
     }
 }

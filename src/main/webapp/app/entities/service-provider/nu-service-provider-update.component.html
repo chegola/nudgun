@@ -1,0 +1,228 @@
+<!-- 1st row -->
+<div class="row justify-content-center">
+    <h2 id="jhi-service-provider-heading" jhiTranslate="nudgunApp.serviceProvider.home.createOrEditLabel">Create or edit a Service Provider</h2>
+    <div>
+        <jhi-alert-error></jhi-alert-error>
+    </div>
+</div>
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <!-- 2nd row -->
+    <div class="row">
+        <!-- column 1-->
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                    [(ngModel)]="serviceProvider.name" required maxlength="100"/>
+                <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.name?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- column 2-->
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.profile_pic" for="field_profile_pic">Profile Pic</label>
+                <input type="text" class="form-control" name="profile_pic" id="field_profile_pic"
+                    [(ngModel)]="serviceProvider.profile_pic" required maxlength="100"/>
+                <div [hidden]="!(editForm.controls.profile_pic?.dirty && editForm.controls.profile_pic?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.profile_pic?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.profile_pic?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- column 3-->
+        <div class="col-sm-12 col-lg-3">
+
+        </div>
+    </div>
+
+    <!-- 3rd row -->
+    <div class="row">
+        <!-- col 1 -->
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.services" for="field_services">Services</label>
+                <input type="text" class="form-control" name="services" id="field_services"
+                    [(ngModel)]="serviceProvider.services" required maxlength="100"/>
+                <div [hidden]="!(editForm.controls.services?.dirty && editForm.controls.services?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.services?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.services?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- col 2 -->
+        <div class="col-sm-12 col-lg-3">
+          <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.serviceStart" for="field_serviceStart">Service Start</label>
+                    <div class="d-flex">
+                        <input id="field_serviceStart" type="time" class="form-control" name="serviceStart" [(ngModel)]="serviceStart" required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.serviceStart?.dirty && editForm.controls.serviceStart?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.serviceStart?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.serviceStart?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+          </div>
+        </div>
+
+        <!-- col 3 -->
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.serviceEnd" for="field_serviceEnd">Service End</label>
+                <div class="d-flex">
+                    <input id="field_serviceEnd" type="time" class="form-control" name="serviceEnd" [(ngModel)]="serviceEnd" required/>
+                </div>
+                <div [hidden]="!(editForm.controls.serviceEnd?.dirty && editForm.controls.serviceEnd?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.serviceEnd?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.serviceEnd?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                        This field should be a date and time.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4th row -->
+    <div class="row">
+        <!-- col 1 -->
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.address" for="field_address">Address</label>
+                <textarea  rows="5" class="form-control" name="address" id="field_address"
+                    [(ngModel)]="serviceProvider.address" required> </textarea>
+
+                <div [hidden]="!(editForm.controls.address?.dirty && editForm.controls.address?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.address?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5th row -->
+    <div class="row">
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.phone" for="field_phone">Phone</label>
+                <input type="text" class="form-control" name="phone" id="field_phone"
+                    [(ngModel)]="serviceProvider.phone" required/>
+                <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.phone?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.email" for="field_email">Email</label>
+                <input type="text" class="form-control" name="email" id="field_email"
+                    [(ngModel)]="serviceProvider.email" required/>
+                <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.facebook" for="field_facebook">Facebook</label>
+                <input type="text" class="form-control" name="facebook" id="field_facebook"
+                    [(ngModel)]="serviceProvider.facebook" />
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.instragram" for="field_instragram">Instragram</label>
+                    <input type="text" class="form-control" name="instragram" id="field_instragram"
+                        [(ngModel)]="serviceProvider.instragram" />
+            </div>
+        </div>
+    </div>
+
+    <!-- 6th row -->
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.description" for="field_description">Description</label>
+                <textarea  rows="3"  class="form-control" name="description" id="field_description"
+                    [(ngModel)]="serviceProvider.description" > </textarea>
+            </div>
+        </div>
+    </div>
+
+     <!-- 7th row -->
+     <div class="row">
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard" for="field_acceptCreditCard">Accept Credit Card</label>
+                <input type="checkbox" class="form-control" name="acceptCreditCard" id="field_acceptCreditCard"
+                    [(ngModel)]="serviceProvider.acceptCreditCard" />
+                <div [hidden]="!(editForm.controls.acceptCreditCard?.dirty && editForm.controls.acceptCreditCard?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.acceptCreditCard?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingAvailable" for="field_parkingAvailable">Parking Available</label>
+                    <input type="checkbox" class="form-control" name="parkingAvailable" id="field_parkingAvailable"
+                        [(ngModel)]="serviceProvider.parkingAvailable" />
+            </div>
+        </div>
+    </div>
+    <!--  row BUTTON -->
+    <div class="row justify-content-center">
+        <div>
+            <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+
+</form>

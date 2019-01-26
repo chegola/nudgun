@@ -10,7 +10,7 @@ import { ServiceProviderService } from './service-provider.service';
 
 @Component({
     selector: 'jhi-service-provider-update',
-    templateUrl: './service-provider-update.component.html'
+    templateUrl: './nu-service-provider-update.component.html'
 })
 export class ServiceProviderUpdateComponent implements OnInit {
     serviceProvider: IServiceProvider;
