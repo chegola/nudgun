@@ -50,6 +50,13 @@ public class ServiceProviderDTO implements Serializable {
     @NotNull
     private ZonedDateTime serviceEnd;
 
+    private String phone2;
+
+    private String phone3;
+
+    @Size(max = 100)
+    private String parkingDetail;
+
     public Long getId() {
         return id;
     }
@@ -162,6 +169,30 @@ public class ServiceProviderDTO implements Serializable {
         this.serviceEnd = serviceEnd;
     }
 
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getPhone3() {
+        return phone3;
+    }
+
+    public void setPhone3(String phone3) {
+        this.phone3 = phone3;
+    }
+
+    public String getParkingDetail() {
+        return parkingDetail;
+    }
+
+    public void setParkingDetail(String parkingDetail) {
+        this.parkingDetail = parkingDetail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -200,6 +231,9 @@ public class ServiceProviderDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", serviceStart='" + getServiceStart() + "'" +
             ", serviceEnd='" + getServiceEnd() + "'" +
+            ", phone2='" + getPhone2() + "'" +
+            ", phone3='" + getPhone3() + "'" +
+            ", parkingDetail='" + getParkingDetail() + "'" +
             "}";
     }
 }

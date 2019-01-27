@@ -85,6 +85,9 @@ class ServiceProviderGatlingTest extends Simulation {
                 , "description":"SAMPLE_TEXT"
                 , "serviceStart":"2020-01-01T00:00:00.000Z"
                 , "serviceEnd":"2020-01-01T00:00:00.000Z"
+                , "phone2":"SAMPLE_TEXT"
+                , "phone3":"SAMPLE_TEXT"
+                , "parkingDetail":"SAMPLE_TEXT"
                 }""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_serviceProvider_url"))).exitHereIfFailed

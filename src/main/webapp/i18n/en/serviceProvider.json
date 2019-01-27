@@ -19,15 +19,23 @@
             "profile_pic": "Shop Profile Pic",
             "services": "List of available services",
             "address": "Address",
-            "phone": "Phone",
+            "phone": "Primary phone number",
             "email": "Email",
             "facebook": "Facebook",
             "instragram": "Instragram",
             "acceptCreditCard": "Accept Credit Card",
+            "accept": "Yes",
+            "notAccept": "No",
             "parkingAvailable": "Parking Available",
             "description": "Description",
             "serviceStart": "Opening hour",
-            "serviceEnd": "Closing hour"
+            "serviceEnd": "Closing hour",
+            "phone2": "Secondary phone number",
+            "phone3": "Additional phone number",
+            "parkingDetail": "More info of parking",
+            "parkingYes": "Yes",
+            "parkingNo": "No",
+            "parkingOthers": "Others"
         }
     }
 }

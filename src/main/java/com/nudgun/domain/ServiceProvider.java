@@ -76,6 +76,16 @@ public class ServiceProvider implements Serializable {
     @Column(name = "service_end", nullable = false)
     private ZonedDateTime serviceEnd;
 
+    @Column(name = "phone_2")
+    private String phone2;
+
+    @Column(name = "phone_3")
+    private String phone3;
+
+    @Size(max = 100)
+    @Column(name = "parking_detail", length = 100)
+    private String parkingDetail;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -253,6 +263,45 @@ public class ServiceProvider implements Serializable {
     public void setServiceEnd(ZonedDateTime serviceEnd) {
         this.serviceEnd = serviceEnd;
     }
+
+    public String getPhone2() {
+        return phone2;
+    }
+
+    public ServiceProvider phone2(String phone2) {
+        this.phone2 = phone2;
+        return this;
+    }
+
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
+    }
+
+    public String getPhone3() {
+        return phone3;
+    }
+
+    public ServiceProvider phone3(String phone3) {
+        this.phone3 = phone3;
+        return this;
+    }
+
+    public void setPhone3(String phone3) {
+        this.phone3 = phone3;
+    }
+
+    public String getParkingDetail() {
+        return parkingDetail;
+    }
+
+    public ServiceProvider parkingDetail(String parkingDetail) {
+        this.parkingDetail = parkingDetail;
+        return this;
+    }
+
+    public void setParkingDetail(String parkingDetail) {
+        this.parkingDetail = parkingDetail;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -292,6 +341,9 @@ public class ServiceProvider implements Serializable {
             ", description='" + getDescription() + "'" +
             ", serviceStart='" + getServiceStart() + "'" +
             ", serviceEnd='" + getServiceEnd() + "'" +
+            ", phone2='" + getPhone2() + "'" +
+            ", phone3='" + getPhone3() + "'" +
+            ", parkingDetail='" + getParkingDetail() + "'" +
             "}";
     }
 }

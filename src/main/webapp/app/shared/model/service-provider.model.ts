@@ -15,6 +15,9 @@ export interface IServiceProvider {
     description?: string;
     serviceStart?: Moment;
     serviceEnd?: Moment;
+    phone2?: string;
+    phone3?: string;
+    parkingDetail?: string;
 }
 
 export class ServiceProvider implements IServiceProvider {
@@ -32,7 +35,10 @@ export class ServiceProvider implements IServiceProvider {
         public parkingAvailable?: boolean,
         public description?: string,
         public serviceStart?: Moment,
-        public serviceEnd?: Moment
+        public serviceEnd?: Moment,
+        public phone2?: string,
+        public phone3?: string,
+        public parkingDetail?: string
     ) {
         this.acceptCreditCard = this.acceptCreditCard || false;
         this.parkingAvailable = this.parkingAvailable || false;

@@ -24,10 +24,18 @@
             "facebook": "เฟซบุค",
             "instragram": "อินสตาแกรม",
             "acceptCreditCard": "รับบัตรเครดิต",
+            "accept": "รับ",
+            "notAccept": "ไม่รับ",
             "parkingAvailable": "ที่จอดรถ",
             "description": "คำอธิบายเกี่ยวกับร้าน",
             "serviceStart": "เวลาเปิด",
-            "serviceEnd": "เวลาปิด"
+            "serviceEnd": "เวลาปิด",
+            "phone2": "เบอร์โทรรอง",
+            "phone3": "เบอร์โทรสำรอง",
+            "parkingDetail": "รายละเอียดอื่นๆเกี่ยวกับที่จอดรถ",
+            "parkingYes": "มี",
+            "parkingNo": "ไม่มี",
+            "parkingOthers": "อื่นๆ"
         }
     }
 }

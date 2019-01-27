@@ -88,6 +88,22 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "phone2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phone3",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "parkingDetail",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
         }
     ],
     "changelogDate": "20190121162230",

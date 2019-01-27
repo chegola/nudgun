@@ -39,7 +39,10 @@ describe('Service Tests', () => {
                 false,
                 'AAAAAAA',
                 currentDate,
-                currentDate
+                currentDate,
+                'AAAAAAA',
+                'AAAAAAA',
+                'AAAAAAA'
             );
         });
 
@@ -100,7 +103,10 @@ describe('Service Tests', () => {
                         parkingAvailable: true,
                         description: 'BBBBBB',
                         serviceStart: currentDate.format(DATE_TIME_FORMAT),
-                        serviceEnd: currentDate.format(DATE_TIME_FORMAT)
+                        serviceEnd: currentDate.format(DATE_TIME_FORMAT),
+                        phone2: 'BBBBBB',
+                        phone3: 'BBBBBB',
+                        parkingDetail: 'BBBBBB'
                     },
                     elemDefault
                 );
@@ -135,7 +141,10 @@ describe('Service Tests', () => {
                         parkingAvailable: true,
                         description: 'BBBBBB',
                         serviceStart: currentDate.format(DATE_TIME_FORMAT),
-                        serviceEnd: currentDate.format(DATE_TIME_FORMAT)
+                        serviceEnd: currentDate.format(DATE_TIME_FORMAT),
+                        phone2: 'BBBBBB',
+                        phone3: 'BBBBBB',
+                        parkingDetail: 'BBBBBB'
                     },
                     elemDefault
                 );

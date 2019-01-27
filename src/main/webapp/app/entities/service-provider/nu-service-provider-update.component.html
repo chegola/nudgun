@@ -152,6 +152,27 @@
         </div>
         <div class="col-sm-12 col-lg-3">
             <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.phone2" for="field_phone2">Phone 2</label>
+                <input type="text" class="form-control" name="phone2" id="field_phone2"
+                    [(ngModel)]="serviceProvider.phone2" />
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- row -->
+    <div class="row">
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.phone3" for="field_phone3">Phone 3</label>
+                <input type="text" class="form-control" name="phone3" id="field_phone3"
+                    [(ngModel)]="serviceProvider.phone3" />
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-3">
+            <div class="form-group">
                 <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.email" for="field_email">Email</label>
                 <input type="text" class="form-control" name="email" id="field_email"
                     [(ngModel)]="serviceProvider.email" required/>
@@ -163,6 +184,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-sm-12 col-lg-3">
             <div class="form-group">
                 <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.facebook" for="field_facebook">Facebook</label>
@@ -194,9 +216,16 @@
      <div class="row">
         <div class="col-sm-12 col-lg-3">
             <div class="form-group">
-                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard" for="field_acceptCreditCard">Accept Credit Card</label>
-                <input type="checkbox" class="form-control" name="acceptCreditCard" id="field_acceptCreditCard"
-                    [(ngModel)]="serviceProvider.acceptCreditCard" />
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.acceptCreditCard">Accept Credit Card</label>
+                <div>
+                    <input type="radio" class="form-check form-check-inline" name="acceptCreditCard" id="field_acceptCreditCard"
+                        [checked]="serviceProvider.acceptCreditCard === true" value="true" (change)="onAcceptCreditCardChange()" />
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.accept" for="field_acceptCreditCard">Yes</label>
+
+                    <input type="radio" class="form-check form-check-inline" name="notAcceptCreditCard" id="field_notAcceptCreditCard"
+                        [checked]="serviceProvider.acceptCreditCard === false" value="false" (change)="onAcceptCreditCardChange()" />
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.notAccept" for="field_notAcceptCreditCard">No</label>
+                </div>
                 <div [hidden]="!(editForm.controls.acceptCreditCard?.dirty && editForm.controls.acceptCreditCard?.invalid)">
                     <small class="form-text text-danger"
                     [hidden]="!editForm.controls.acceptCreditCard?.errors?.required" jhiTranslate="entity.validation.required">
@@ -207,10 +236,33 @@
         </div>
         <div class="col-sm-12 col-lg-3">
             <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingAvailable" for="field_parkingAvailable">Parking Available</label>
-                    <input type="checkbox" class="form-control" name="parkingAvailable" id="field_parkingAvailable"
-                        [(ngModel)]="serviceProvider.parkingAvailable" />
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingAvailable">Parking Available</label>
+                <div>
+                    <input type="radio" class="form-check form-check-inline" name="parkingAvailableYes" id="field_parkingAvailable"
+                        [checked]="serviceProvider.parkingAvailable === true" value="true" (change)="onParkingAvailableChange()" />
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingYes" for="field_parkingAvailableYes">Yes</label>
+
+                    <input type="radio" class="form-check form-check-inline" name="parkingAvailableNo" id="field_parkingAvailable"
+                        [checked]="serviceProvider.parkingAvailable === false" value="false" (change)="onParkingAvailableChange()" />
+                    <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingNo" for="field_parkingAvailableNo">No</label>
+
+                </div>
+
             </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group">
+                <label class="form-control-label" jhiTranslate="nudgunApp.serviceProvider.parkingDetail" for="field_parkingDetail">Parking Detail</label>
+                <input type="text" class="form-control" name="parkingDetail" id="field_parkingDetail"
+                    [(ngModel)]="serviceProvider.parkingDetail" maxlength="100"/>
+                <div [hidden]="!(editForm.controls.parkingDetail?.dirty && editForm.controls.parkingDetail?.invalid)">
+                    <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.parkingDetail?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 100 }">
+                    This field cannot be longer than 100 characters.
+                    </small>
+                </div>
+            </div>
+
         </div>
     </div>
     <!--  row BUTTON -->

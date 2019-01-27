@@ -28,6 +28,9 @@
             <th jhiSortBy="description"><span jhiTranslate="nudgunApp.serviceProvider.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="serviceStart"><span jhiTranslate="nudgunApp.serviceProvider.serviceStart">Service Start</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="serviceEnd"><span jhiTranslate="nudgunApp.serviceProvider.serviceEnd">Service End</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone2"><span jhiTranslate="nudgunApp.serviceProvider.phone2">Phone 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone3"><span jhiTranslate="nudgunApp.serviceProvider.phone3">Phone 3</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="parkingDetail"><span jhiTranslate="nudgunApp.serviceProvider.parkingDetail">Parking Detail</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -47,6 +50,9 @@
                 <td>{{serviceProvider.description}}</td>
                 <td>{{serviceProvider.serviceStart | date:'medium'}}</td>
                 <td>{{serviceProvider.serviceEnd | date:'medium'}}</td>
+                <td>{{serviceProvider.phone2}}</td>
+                <td>{{serviceProvider.phone3}}</td>
+                <td>{{serviceProvider.parkingDetail}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

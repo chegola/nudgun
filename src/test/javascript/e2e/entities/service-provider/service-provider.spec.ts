@@ -49,7 +49,10 @@ describe('ServiceProvider e2e test', () => {
             serviceProviderUpdatePage.setInstragramInput('instragram'),
             serviceProviderUpdatePage.setDescriptionInput('description'),
             serviceProviderUpdatePage.setServiceStartInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
-            serviceProviderUpdatePage.setServiceEndInput('01/01/2001' + protractor.Key.TAB + '02:30AM')
+            serviceProviderUpdatePage.setServiceEndInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
+            serviceProviderUpdatePage.setPhone2Input('phone2'),
+            serviceProviderUpdatePage.setPhone3Input('phone3'),
+            serviceProviderUpdatePage.setParkingDetailInput('parkingDetail')
         ]);
         expect(await serviceProviderUpdatePage.getNameInput()).to.eq('name');
         expect(await serviceProviderUpdatePage.getProfile_picInput()).to.eq('profile_pic');
@@ -78,6 +81,9 @@ describe('ServiceProvider e2e test', () => {
         expect(await serviceProviderUpdatePage.getDescriptionInput()).to.eq('description');
         expect(await serviceProviderUpdatePage.getServiceStartInput()).to.contain('2001-01-01T02:30');
         expect(await serviceProviderUpdatePage.getServiceEndInput()).to.contain('2001-01-01T02:30');
+        expect(await serviceProviderUpdatePage.getPhone2Input()).to.eq('phone2');
+        expect(await serviceProviderUpdatePage.getPhone3Input()).to.eq('phone3');
+        expect(await serviceProviderUpdatePage.getParkingDetailInput()).to.eq('parkingDetail');
         await serviceProviderUpdatePage.save();
         expect(await serviceProviderUpdatePage.getSaveButton().isPresent()).to.be.false;
 

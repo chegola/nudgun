@@ -51,6 +51,12 @@ public class ServiceProviderCriteria implements Serializable {
 
     private ZonedDateTimeFilter serviceEnd;
 
+    private StringFilter phone2;
+
+    private StringFilter phone3;
+
+    private StringFilter parkingDetail;
+
     public LongFilter getId() {
         return id;
     }
@@ -163,6 +169,30 @@ public class ServiceProviderCriteria implements Serializable {
         this.serviceEnd = serviceEnd;
     }
 
+    public StringFilter getPhone2() {
+        return phone2;
+    }
+
+    public void setPhone2(StringFilter phone2) {
+        this.phone2 = phone2;
+    }
+
+    public StringFilter getPhone3() {
+        return phone3;
+    }
+
+    public void setPhone3(StringFilter phone3) {
+        this.phone3 = phone3;
+    }
+
+    public StringFilter getParkingDetail() {
+        return parkingDetail;
+    }
+
+    public void setParkingDetail(StringFilter parkingDetail) {
+        this.parkingDetail = parkingDetail;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -187,7 +217,10 @@ public class ServiceProviderCriteria implements Serializable {
             Objects.equals(parkingAvailable, that.parkingAvailable) &&
             Objects.equals(description, that.description) &&
             Objects.equals(serviceStart, that.serviceStart) &&
-            Objects.equals(serviceEnd, that.serviceEnd);
+            Objects.equals(serviceEnd, that.serviceEnd) &&
+            Objects.equals(phone2, that.phone2) &&
+            Objects.equals(phone3, that.phone3) &&
+            Objects.equals(parkingDetail, that.parkingDetail);
     }
 
     @Override
@@ -206,7 +239,10 @@ public class ServiceProviderCriteria implements Serializable {
         parkingAvailable,
         description,
         serviceStart,
-        serviceEnd
+        serviceEnd,
+        phone2,
+        phone3,
+        parkingDetail
         );
     }
 
@@ -227,6 +263,9 @@ public class ServiceProviderCriteria implements Serializable {
                 (description != null ? "description=" + description + ", " : "") +
                 (serviceStart != null ? "serviceStart=" + serviceStart + ", " : "") +
                 (serviceEnd != null ? "serviceEnd=" + serviceEnd + ", " : "") +
+                (phone2 != null ? "phone2=" + phone2 + ", " : "") +
+                (phone3 != null ? "phone3=" + phone3 + ", " : "") +
+                (parkingDetail != null ? "parkingDetail=" + parkingDetail + ", " : "") +
             "}";
     }
 

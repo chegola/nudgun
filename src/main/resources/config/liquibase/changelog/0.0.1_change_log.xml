@@ -73,6 +73,18 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="phone_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="phone_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="parking_detail" type="varchar(100)">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="nu_service_provider" columnName="service_start" columnDataType="datetime"/>

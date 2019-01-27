@@ -39,6 +39,9 @@ export class ServiceProviderUpdatePage {
     descriptionInput = element(by.id('field_description'));
     serviceStartInput = element(by.id('field_serviceStart'));
     serviceEndInput = element(by.id('field_serviceEnd'));
+    phone2Input = element(by.id('field_phone2'));
+    phone3Input = element(by.id('field_phone3'));
+    parkingDetailInput = element(by.id('field_parkingDetail'));
 
     async getPageTitle() {
         return this.pageTitle.getAttribute('jhiTranslate');
@@ -136,6 +139,30 @@ export class ServiceProviderUpdatePage {
 
     async getServiceEndInput() {
         return this.serviceEndInput.getAttribute('value');
+    }
+
+    async setPhone2Input(phone2) {
+        await this.phone2Input.sendKeys(phone2);
+    }
+
+    async getPhone2Input() {
+        return this.phone2Input.getAttribute('value');
+    }
+
+    async setPhone3Input(phone3) {
+        await this.phone3Input.sendKeys(phone3);
+    }
+
+    async getPhone3Input() {
+        return this.phone3Input.getAttribute('value');
+    }
+
+    async setParkingDetailInput(parkingDetail) {
+        await this.parkingDetailInput.sendKeys(parkingDetail);
+    }
+
+    async getParkingDetailInput() {
+        return this.parkingDetailInput.getAttribute('value');
     }
 
     async save() {

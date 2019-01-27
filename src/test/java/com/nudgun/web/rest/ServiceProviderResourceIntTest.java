@@ -89,6 +89,15 @@ public class ServiceProviderResourceIntTest {
     private static final ZonedDateTime DEFAULT_SERVICE_END = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_SERVICE_END = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final String DEFAULT_PHONE_2 = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PHONE_3 = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE_3 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_PARKING_DETAIL = "AAAAAAAAAA";
+    private static final String UPDATED_PARKING_DETAIL = "BBBBBBBBBB";
+
     @Autowired
     private ServiceProviderRepository serviceProviderRepository;
 
@@ -152,7 +161,10 @@ public class ServiceProviderResourceIntTest {
             .parkingAvailable(DEFAULT_PARKING_AVAILABLE)
             .description(DEFAULT_DESCRIPTION)
             .serviceStart(DEFAULT_SERVICE_START)
-            .serviceEnd(DEFAULT_SERVICE_END);
+            .serviceEnd(DEFAULT_SERVICE_END)
+            .phone2(DEFAULT_PHONE_2)
+            .phone3(DEFAULT_PHONE_3)
+            .parkingDetail(DEFAULT_PARKING_DETAIL);
         return serviceProvider;
     }
 
@@ -190,6 +202,9 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testServiceProvider.getServiceStart()).isEqualTo(DEFAULT_SERVICE_START);
         assertThat(testServiceProvider.getServiceEnd()).isEqualTo(DEFAULT_SERVICE_END);
+        assertThat(testServiceProvider.getPhone2()).isEqualTo(DEFAULT_PHONE_2);
+        assertThat(testServiceProvider.getPhone3()).isEqualTo(DEFAULT_PHONE_3);
+        assertThat(testServiceProvider.getParkingDetail()).isEqualTo(DEFAULT_PARKING_DETAIL);
     }
 
     @Test
@@ -406,7 +421,10 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].serviceStart").value(hasItem(sameInstant(DEFAULT_SERVICE_START))))
-            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))));
+            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))))
+            .andExpect(jsonPath("$.[*].phone2").value(hasItem(DEFAULT_PHONE_2.toString())))
+            .andExpect(jsonPath("$.[*].phone3").value(hasItem(DEFAULT_PHONE_3.toString())))
+            .andExpect(jsonPath("$.[*].parkingDetail").value(hasItem(DEFAULT_PARKING_DETAIL.toString())));
     }
     
     @Test
@@ -432,7 +450,10 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.parkingAvailable").value(DEFAULT_PARKING_AVAILABLE.booleanValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.serviceStart").value(sameInstant(DEFAULT_SERVICE_START)))
-            .andExpect(jsonPath("$.serviceEnd").value(sameInstant(DEFAULT_SERVICE_END)));
+            .andExpect(jsonPath("$.serviceEnd").value(sameInstant(DEFAULT_SERVICE_END)))
+            .andExpect(jsonPath("$.phone2").value(DEFAULT_PHONE_2.toString()))
+            .andExpect(jsonPath("$.phone3").value(DEFAULT_PHONE_3.toString()))
+            .andExpect(jsonPath("$.parkingDetail").value(DEFAULT_PARKING_DETAIL.toString()));
     }
 
     @Test
@@ -995,6 +1016,123 @@ public class ServiceProviderResourceIntTest {
         defaultServiceProviderShouldBeFound("serviceEnd.lessThan=" + UPDATED_SERVICE_END);
     }
 
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone2IsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone2 equals to DEFAULT_PHONE_2
+        defaultServiceProviderShouldBeFound("phone2.equals=" + DEFAULT_PHONE_2);
+
+        // Get all the serviceProviderList where phone2 equals to UPDATED_PHONE_2
+        defaultServiceProviderShouldNotBeFound("phone2.equals=" + UPDATED_PHONE_2);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone2IsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone2 in DEFAULT_PHONE_2 or UPDATED_PHONE_2
+        defaultServiceProviderShouldBeFound("phone2.in=" + DEFAULT_PHONE_2 + "," + UPDATED_PHONE_2);
+
+        // Get all the serviceProviderList where phone2 equals to UPDATED_PHONE_2
+        defaultServiceProviderShouldNotBeFound("phone2.in=" + UPDATED_PHONE_2);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone2IsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone2 is not null
+        defaultServiceProviderShouldBeFound("phone2.specified=true");
+
+        // Get all the serviceProviderList where phone2 is null
+        defaultServiceProviderShouldNotBeFound("phone2.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone3IsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone3 equals to DEFAULT_PHONE_3
+        defaultServiceProviderShouldBeFound("phone3.equals=" + DEFAULT_PHONE_3);
+
+        // Get all the serviceProviderList where phone3 equals to UPDATED_PHONE_3
+        defaultServiceProviderShouldNotBeFound("phone3.equals=" + UPDATED_PHONE_3);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone3IsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone3 in DEFAULT_PHONE_3 or UPDATED_PHONE_3
+        defaultServiceProviderShouldBeFound("phone3.in=" + DEFAULT_PHONE_3 + "," + UPDATED_PHONE_3);
+
+        // Get all the serviceProviderList where phone3 equals to UPDATED_PHONE_3
+        defaultServiceProviderShouldNotBeFound("phone3.in=" + UPDATED_PHONE_3);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByPhone3IsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where phone3 is not null
+        defaultServiceProviderShouldBeFound("phone3.specified=true");
+
+        // Get all the serviceProviderList where phone3 is null
+        defaultServiceProviderShouldNotBeFound("phone3.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByParkingDetailIsEqualToSomething() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where parkingDetail equals to DEFAULT_PARKING_DETAIL
+        defaultServiceProviderShouldBeFound("parkingDetail.equals=" + DEFAULT_PARKING_DETAIL);
+
+        // Get all the serviceProviderList where parkingDetail equals to UPDATED_PARKING_DETAIL
+        defaultServiceProviderShouldNotBeFound("parkingDetail.equals=" + UPDATED_PARKING_DETAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByParkingDetailIsInShouldWork() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where parkingDetail in DEFAULT_PARKING_DETAIL or UPDATED_PARKING_DETAIL
+        defaultServiceProviderShouldBeFound("parkingDetail.in=" + DEFAULT_PARKING_DETAIL + "," + UPDATED_PARKING_DETAIL);
+
+        // Get all the serviceProviderList where parkingDetail equals to UPDATED_PARKING_DETAIL
+        defaultServiceProviderShouldNotBeFound("parkingDetail.in=" + UPDATED_PARKING_DETAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllServiceProvidersByParkingDetailIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        serviceProviderRepository.saveAndFlush(serviceProvider);
+
+        // Get all the serviceProviderList where parkingDetail is not null
+        defaultServiceProviderShouldBeFound("parkingDetail.specified=true");
+
+        // Get all the serviceProviderList where parkingDetail is null
+        defaultServiceProviderShouldNotBeFound("parkingDetail.specified=false");
+    }
     /**
      * Executes the search, and checks that the default entity is returned
      */
@@ -1015,7 +1153,10 @@ public class ServiceProviderResourceIntTest {
             .andExpect(jsonPath("$.[*].parkingAvailable").value(hasItem(DEFAULT_PARKING_AVAILABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].serviceStart").value(hasItem(sameInstant(DEFAULT_SERVICE_START))))
-            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))));
+            .andExpect(jsonPath("$.[*].serviceEnd").value(hasItem(sameInstant(DEFAULT_SERVICE_END))))
+            .andExpect(jsonPath("$.[*].phone2").value(hasItem(DEFAULT_PHONE_2.toString())))
+            .andExpect(jsonPath("$.[*].phone3").value(hasItem(DEFAULT_PHONE_3.toString())))
+            .andExpect(jsonPath("$.[*].parkingDetail").value(hasItem(DEFAULT_PARKING_DETAIL.toString())));
 
         // Check, that the count call also returns 1
         restServiceProviderMockMvc.perform(get("/api/service-providers/count?sort=id,desc&" + filter))
@@ -1075,7 +1216,10 @@ public class ServiceProviderResourceIntTest {
             .parkingAvailable(UPDATED_PARKING_AVAILABLE)
             .description(UPDATED_DESCRIPTION)
             .serviceStart(UPDATED_SERVICE_START)
-            .serviceEnd(UPDATED_SERVICE_END);
+            .serviceEnd(UPDATED_SERVICE_END)
+            .phone2(UPDATED_PHONE_2)
+            .phone3(UPDATED_PHONE_3)
+            .parkingDetail(UPDATED_PARKING_DETAIL);
         ServiceProviderDTO serviceProviderDTO = serviceProviderMapper.toDto(updatedServiceProvider);
 
         restServiceProviderMockMvc.perform(put("/api/service-providers")
@@ -1100,6 +1244,9 @@ public class ServiceProviderResourceIntTest {
         assertThat(testServiceProvider.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testServiceProvider.getServiceStart()).isEqualTo(UPDATED_SERVICE_START);
         assertThat(testServiceProvider.getServiceEnd()).isEqualTo(UPDATED_SERVICE_END);
+        assertThat(testServiceProvider.getPhone2()).isEqualTo(UPDATED_PHONE_2);
+        assertThat(testServiceProvider.getPhone3()).isEqualTo(UPDATED_PHONE_3);
+        assertThat(testServiceProvider.getParkingDetail()).isEqualTo(UPDATED_PARKING_DETAIL);
     }
 
     @Test
