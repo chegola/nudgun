@@ -11,11 +11,17 @@ import {
     serviceProviderRoute,
     serviceProviderPopupRoute
 } from './';
-
+import { AgmCoreModule } from '@agm/core';
 const ENTITY_STATES = [...serviceProviderRoute, ...serviceProviderPopupRoute];
 
 @NgModule({
-    imports: [NudgunSharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [
+        NudgunSharedModule,
+        RouterModule.forChild(ENTITY_STATES),
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDtxSjVVNJcmDNv5ikwzUO7zV0L_fMYsvI'
+        })
+    ],
     declarations: [
         ServiceProviderComponent,
         ServiceProviderDetailComponent,
