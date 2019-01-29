@@ -97,6 +97,9 @@
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
 
         <!-- jhipster-needle-maven-property -->
+
+        <liquibase-spatial.version>1.2.1</liquibase-spatial.version>
+        <jackson-jts.version>2.4</jackson-jts.version>
     </properties>
 
     <dependencyManagement>
@@ -364,6 +367,22 @@
             <scope>test</scope>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.lonnyj</groupId>
+            <artifactId>liquibase-spatial</artifactId>
+            <version>${liquibase-spatial.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bedatadriven</groupId>
+            <artifactId>jackson-datatype-jts</artifactId>
+            <version>${jackson-jts.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

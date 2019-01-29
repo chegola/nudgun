@@ -18,7 +18,7 @@
             "name": "Shop name",
             "profile_pic": "Shop Profile Pic",
             "services": "List of available services",
-            "address": "Address",
+            "address": "Address, please click a marker on map to get your address.",
             "phone": "Primary phone number",
             "email": "Email",
             "facebook": "Facebook",

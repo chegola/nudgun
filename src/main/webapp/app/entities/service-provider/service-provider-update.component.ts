@@ -7,6 +7,7 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IServiceProvider } from 'app/shared/model/service-provider.model';
 import { ServiceProviderService } from './service-provider.service';
+import { GeoJson, IGeometry } from 'app/shared/geometry/map';
 
 interface IAddress {
     long_name: string;
@@ -22,6 +23,7 @@ interface IAddressComponent {
 interface IGeoResult {
     results: IAddressComponent[];
     status: string;
+    error_message: string;
 }
 
 @Component({
@@ -54,21 +56,40 @@ export class ServiceProviderUpdateComponent implements OnInit {
             this.serviceStart =
                 this.serviceProvider.serviceStart != null ? this.serviceProvider.serviceStart.format(DATE_TIME_FORMAT) : null;
             this.serviceEnd = this.serviceProvider.serviceEnd != null ? this.serviceProvider.serviceEnd.format(DATE_TIME_FORMAT) : null;
+
+            if (!this.serviceProvider.location) {
+                this.getCurrentLocation();
+            } else {
+                this.lat = this.serviceProvider.location.coordinates[0];
+                this.lng = this.serviceProvider.location.coordinates[1];
+            }
         });
+    }
+
+    private getCurrentLocation(): void {
         this.getCurrentPosition().then(
             // able to get current position from browser
             () => {
                 this.lat = this.geoPosition.coords.latitude;
                 this.lng = this.geoPosition.coords.longitude;
+                this.serviceProvider.location = this.createPoint(this.lat, this.lng);
             },
             // unable to get current position from browser, default to where???
             () => {
                 this.lat = 13.7799939;
                 this.lng = 100.6132358;
+                this.serviceProvider.location = this.createPoint(this.lat, this.lng);
             }
         );
     }
+    private createPoint(lat: number, lng: number): IGeometry {
+        const coordinates = [];
+        coordinates.push(this.lat);
+        coordinates.push(this.lng);
 
+        const geoJson = new GeoJson(coordinates);
+        return geoJson.geometry;
+    }
     previousState() {
         window.history.back();
     }
@@ -110,7 +131,8 @@ export class ServiceProviderUpdateComponent implements OnInit {
             if (window.navigator && window.navigator.geolocation) {
                 window.navigator.geolocation.getCurrentPosition(
                     position => {
-                        (this.geoPosition = position), console.log(position);
+                        this.geoPosition = position;
+                        // console.log(position);
                         resolve();
                     },
                     error => {
@@ -140,20 +162,21 @@ export class ServiceProviderUpdateComponent implements OnInit {
                 event.coords.lng +
                 '&key=AIzaSyDtxSjVVNJcmDNv5ikwzUO7zV0L_fMYsvI&language=th'
         );
-        // .do(console.log);
-        this.geoResults.subscribe((x: IGeoResult) => {
-            // console.log(x);
-            this.addresses = x;
-            // this.shopForm.get('address').setValue(this.addresses.results[1].address_components[0].short_name);
-            // this.shopForm.get('address').setValue(this.addresses.results[1].formatted_address);
-            this.serviceProvider.address = this.addresses.results[1].formatted_address;
-
-            // const coordinates = [];
-            // coordinates.push(event.coords.lat);
-            // coordinates.push(event.coords.lng);
-
-            // const geoJson = new GeoJson(coordinates);
-            // this.shopForm.get('location').setValue(geoJson.geometry);
+        this.geoResults.subscribe((result: IGeoResult) => {
+            this.addresses = result;
+            if (this.addresses.status !== 'OK') {
+                this.serviceProvider.address = 'Error: ' + this.addresses.error_message + ', กรุณาคลิกบนแผนที่อีกครั้ง.';
+                this.lat = 0;
+                this.lng = 0;
+            } else if (this.addresses.results[1].formatted_address) {
+                this.serviceProvider.address = this.addresses.results[1].formatted_address;
+                this.lat = this.addresses.results[1].geometry.location.lat;
+                this.lng = this.addresses.results[1].geometry.location.lng;
+            } else {
+                this.serviceProvider.address = 'Could not get address from map, please manually fill by yourself.';
+                this.lat = 0;
+                this.lng = 0;
+            }
         });
     }
 }

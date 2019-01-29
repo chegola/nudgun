@@ -1,5 +1,9 @@
 package com.nudgun.service.dto;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Point;
+
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -56,6 +60,17 @@ public class ServiceProviderDTO implements Serializable {
 
     @Size(max = 100)
     private String parkingDetail;
+
+    @JsonSerialize(using = GeometrySerializer.class)
+    private Point location;
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
 
     public Long getId() {
         return id;
@@ -234,6 +249,7 @@ public class ServiceProviderDTO implements Serializable {
             ", phone2='" + getPhone2() + "'" +
             ", phone3='" + getPhone3() + "'" +
             ", parkingDetail='" + getParkingDetail() + "'" +
+        /*    ", location='" + getLocation().getCoordinate().toString() + "'" +*/
             "}";
     }
 }

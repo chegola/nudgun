@@ -134,7 +134,7 @@
         </div>
         <!-- col map -->
         <div class="col-sm-12 col-lg-6">
-            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="17" [disableDefaultUI]="false" [zoomControl]="true">
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="17" [disableDefaultUI]="false" [zoomControl]="true"  (mapClick)="onMapClick($event)">
                 <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
          </div>

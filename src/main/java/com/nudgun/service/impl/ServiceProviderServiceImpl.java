@@ -1,13 +1,19 @@
 package com.nudgun.service.impl;
 
+import com.nudgun.service.GeometryService;
 import com.nudgun.service.ServiceProviderService;
 import com.nudgun.domain.ServiceProvider;
 import com.nudgun.repository.ServiceProviderRepository;
 import com.nudgun.service.dto.ServiceProviderDTO;
 import com.nudgun.service.mapper.ServiceProviderMapper;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -28,9 +34,18 @@ public class ServiceProviderServiceImpl implements ServiceProviderService {
 
     private final ServiceProviderMapper serviceProviderMapper;
 
-    public ServiceProviderServiceImpl(ServiceProviderRepository serviceProviderRepository, ServiceProviderMapper serviceProviderMapper) {
+    private final GeometryService geometryService;
+
+    @Autowired
+    private GeometryFactory geometryFactory;
+
+
+    public ServiceProviderServiceImpl(ServiceProviderRepository serviceProviderRepository,
+                                      ServiceProviderMapper serviceProviderMapper,
+                                      GeometryService geometryService) {
         this.serviceProviderRepository = serviceProviderRepository;
         this.serviceProviderMapper = serviceProviderMapper;
+        this.geometryService = geometryService;
     }
 
     /**
@@ -42,10 +57,23 @@ public class ServiceProviderServiceImpl implements ServiceProviderService {
     @Override
     public ServiceProviderDTO save(ServiceProviderDTO serviceProviderDTO) {
         log.debug("Request to save ServiceProvider : {}", serviceProviderDTO);
-
         ServiceProvider serviceProvider = serviceProviderMapper.toEntity(serviceProviderDTO);
+
+        if (!serviceProviderDTO.getLocation().isEmpty()) {
+            serviceProvider.setLocation(getPoint(serviceProvider));
+        }
+
         serviceProvider = serviceProviderRepository.save(serviceProvider);
         return serviceProviderMapper.toDto(serviceProvider);
+    }
+
+    private Point getPoint(final ServiceProvider serviceProvider) {
+
+        final Geometry geometry = geometryService.wktToGeometry(serviceProvider.getLocation().toText());
+        final Point newPoint = geometryFactory.createPoint(new Coordinate(geometry.getCoordinate()));
+        newPoint.setSRID(geometryService.getSRID());
+        return newPoint;
+
     }
 
     /**

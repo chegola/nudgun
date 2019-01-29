@@ -1,5 +1,6 @@
 package com.nudgun.config;
 
+import com.bedatadriven.jackson.datatype.jts.JtsModule;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -60,4 +61,11 @@ public class JacksonConfiguration {
         return new ConstraintViolationProblemModule();
     }
 
+    /*
+     * Add-on module for Jackson (http://jackson.codehaus.org) to support JTS geometry types using the GeoJSON standard.
+     */
+    @Bean
+    public JtsModule jtsModule() {
+        return new JtsModule();
+    }
 }

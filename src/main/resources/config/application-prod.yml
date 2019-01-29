@@ -33,7 +33,7 @@ spring:
         hikari:
             auto-commit: false
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedPostgreSQL82Dialect
+        database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
         database: POSTGRESQL
         show-sql: false
         properties:

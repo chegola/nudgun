@@ -1,5 +1,8 @@
 package com.nudgun.domain;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Point;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -87,6 +90,24 @@ public class ServiceProvider implements Serializable {
     private String parkingDetail;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
+    @JsonSerialize(using = GeometrySerializer.class)
+    @Column(name = "location", columnDefinition = "Geometry(Point,4326)")
+    private Point location;
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
+    }
+
+    public ServiceProvider location(Point location) {
+        this.location = location;
+        return this;
+    }
+
     public Long getId() {
         return id;
     }
@@ -344,6 +365,7 @@ public class ServiceProvider implements Serializable {
             ", phone2='" + getPhone2() + "'" +
             ", phone3='" + getPhone3() + "'" +
             ", parkingDetail='" + getParkingDetail() + "'" +
+            ", location='" + getLocation() + "'" +
             "}";
     }
 }

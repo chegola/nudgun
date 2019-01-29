@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { GeoJson, IGeometry } from 'app/shared/geometry/map';
 
 export interface IServiceProvider {
     id?: number;
@@ -18,6 +19,7 @@ export interface IServiceProvider {
     phone2?: string;
     phone3?: string;
     parkingDetail?: string;
+    location?: IGeometry;
 }
 
 export class ServiceProvider implements IServiceProvider {
@@ -38,7 +40,8 @@ export class ServiceProvider implements IServiceProvider {
         public serviceEnd?: Moment,
         public phone2?: string,
         public phone3?: string,
-        public parkingDetail?: string
+        public parkingDetail?: string,
+        public location?: IGeometry
     ) {
         this.acceptCreditCard = this.acceptCreditCard || false;
         this.parkingAvailable = this.parkingAvailable || false;

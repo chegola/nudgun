@@ -3,8 +3,11 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:spatial="http://www.liquibase.org/xml/ns/dbchangelog-ext/liquibase-spatial"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
-                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext/liquibase-spatial
+                        http://lonnyj.github.io/liquibase-spatial/liquibase-spatial.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
 
@@ -16,7 +19,7 @@
     <!--
         Added the entity ServiceProvider.
     -->
-    <changeSet id="0.0.1-001" author="jhipster">
+    <changeSet id="0.0.1-001" author="che">
         <createTable tableName="nu_service_provider">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -85,11 +88,23 @@
                 <constraints nullable="true" />
             </column>
 
-            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="nu_service_provider" columnName="service_start" columnDataType="datetime"/>
         <dropDefaultValue tableName="nu_service_provider" columnName="service_end" columnDataType="datetime"/>
 
+
+
     </changeSet>
-    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+
+    <changeSet id="0.0.1-002" author="che">
+        <addColumn tableName="nu_service_provider">
+            <column name="location" type="GEOMETRY(POINT, 4326)">
+                <constraints nullable="true" />
+            </column>
+        </addColumn >
+        <spatial:createSpatialIndex tableName="nu_service_provider" indexName="x1_nu_service_provider_loc" geometryType="Point" srid="4326">
+            <column name="location" />
+        </spatial:createSpatialIndex>
+    </changeSet>
+
 </databaseChangeLog>
